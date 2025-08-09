@@ -8,7 +8,7 @@ type Direction = "forward" | "backward";
 type Option = {
     id: number;
     title: string;
-    Icon: any
+    Icon: ({className}: {     className?: string | undefined; }) => React.JSX.Element
 };
 
 type MultiStep = {
