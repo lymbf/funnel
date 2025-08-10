@@ -134,7 +134,7 @@ export default function RenderStep({
 // krok 6 — dane + podsumowanie
     return (
         <div className = 'flex flex-col items-center w-full max-w-[900px]'>
-            <h2 className="text-xl font-bold mb-4">Dane kontaktowe</h2>
+            <h2 className="text-xl font-bold mb-4">Kontaktdaten</h2>
 
             {/* Podsumowanie */}
             <div className="hidden sm:blockmb-4 rounded-2xl border border-gray-200 bg-gray-50 p-4">
@@ -152,24 +152,24 @@ export default function RenderStep({
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full">
                 <Field
-                    label="Imię"
+                    label="Vorname"
                     name="name"
                     value={formData.name}
                     onChange={(e) => setFormData((p) => ({...p, name: e.target.value}))}
                     onBlur={() => setTouched((t) => ({...t, name: true}))}
                     error={touched.name ? clientErrors.name : ""}
                     required
-                    placeholder="Jan"
+                    placeholder="Max"
                 />
                 <Field
-                    label="Nazwisko"
+                    label="Nachname"
                     name="surname"
                     value={formData.surname}
                     onChange={(e) => setFormData((p) => ({...p, surname: e.target.value}))}
                     onBlur={() => setTouched((t) => ({...t, surname: true}))}
                     error={touched.surname ? clientErrors.surname : ""}
                     required
-                    placeholder="Kowalski"
+                    placeholder="Musterman"
                 />
                 <Field
                     label="Telefon"
@@ -188,13 +188,13 @@ export default function RenderStep({
                     onBlur={() => setTouched((t) => ({...t, email: true}))}
                     error={touched.email ? clientErrors.email : ""}
                     required
-                    placeholder="jan.kowalski@example.com"
+                    placeholder="max.musterman@gmail.com"
                 />
                 <div>
-                    <label className="block text-sm font-medium text-gray-800 mb-1">Uwagi (opcjonalnie)</label>
+                    <label className="block text-sm font-medium text-gray-800 mb-1">Bemerkungen (optional)</label>
                     <textarea
                         name="notes"
-                        placeholder="Dodatkowe informacje"
+                        placeholder="weitere Informationene"
                         value={formData.notes}
                         onChange={(e) => setFormData((p) => ({...p, notes: e.target.value}))}
                         className="w-full border rounded-lg p-3 min-h-[96px] border-accent focus:ring-2 focus:ring-blue-300 outline-none"
