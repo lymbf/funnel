@@ -156,7 +156,7 @@ export default function PrivacyPolicyDEPage() {
                             <ul className="mt-3 list-disc space-y-1 pl-6">
                                 <li>Auskunft und Kopie der Daten,</li>
                                 <li>Berichtigung der Daten,</li>
-                                <li>Löschung der Daten ("Recht auf Vergessenwerden"),</li>
+                                <li>{`Löschung der Daten ("Recht auf Vergessenwerden"),`}</li>
                                 <li>Einschränkung der Verarbeitung,</li>
                                 <li>Datenübertragbarkeit – im Rahmen von Art. 20 DSGVO,</li>
                                 <li>Widerspruch gegen die Verarbeitung auf Grundlage unseres berechtigten Interesses,</li>
