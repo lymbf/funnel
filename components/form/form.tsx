@@ -9,6 +9,7 @@ import RenderStep from "@/components/form/renderStep";
 import Nav from "@/components/form/nav";
 import {Lato} from "next/font/google";
 import {STEPS} from "@/data/steps";
+import Link from "next/link";
 
 const lato = Lato({
     variable: '--font-lato-sans',
@@ -264,8 +265,8 @@ export default function MultiStepForm(): JSX.Element {
             </div>
             {currentStep === 7 && <h2 className={'text-[10px] max-w-[600px] text-center'}>Mit dem Klick auf den untenstehenden Button senden
                 Sie Ihre Anfrage zur Vermittlung, erklären Ihr Einverständnis mit unseren AGB und bestätigen, die
-                Datenschutzerklärung gelesen zu haben. Zudem dürfen wir Ihnen per E-Mail Informationen zu ähnlichen
-                Produkten und Dienstleistungen zusenden. Sie können <a href="mailto:info@lewandowski-bau.com">HIER</a>
+                <Link href = '/privacy-policy' className={'hover:cursor-pointer'}>Datenschutzerklärung</Link> gelesen zu haben. Zudem dürfen wir Ihnen per E-Mail Informationen zu ähnlichen
+                Produkten und Dienstleistungen zusenden. Sie können <a href="mailto:info@lewandowski-bau.com">{`hier `}</a>
                 dieser Nutzung jederzeit kostenlos
                 widersprechen.
             </h2>}

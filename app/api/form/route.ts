@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
     `;
         console.log('email string: ', html)
         await resend.emails.send({
-            from: 'onboarding@resend.dev',
+            from: 'hierfenster.de',
             to: "the.prommers.pl@gmail.com",
             subject: "Nowe zgłoszenie z formularza",
             html,
