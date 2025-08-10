@@ -1,5 +1,6 @@
 import MultiStepForm from "@/components/form/form";
 import Link from "next/link";
+import {InfoIcon} from "lucide-react";
 
 export default function Home() {
     return (
@@ -12,6 +13,9 @@ export default function Home() {
                         3-Minuten-Fenster-Beratung Die 3-Minuten-Fenster-Beratung</h2>
                 </div>
                 <MultiStepForm/>
+                <div className={'text-slate-600 text-[18px] flex flex-row items-center'}>
+                    <InfoIcon className={'mr-4'}/>Der Service ist für Sie komplett kostenfrei und unverbindlich.
+                </div>
             </main>
             <footer
                 className="row-start-3 flex flex-col items-center gap-5 justify-center min-h-[80px] w-full bg-white py-5 border border-t-slate-300 shadow-[rgba(0,0,15,0.12)_10px_-4px_5px_0px]">
