@@ -4,8 +4,8 @@ export default function Basement_window({className}:{className?:string}){
             <g id="Icons">
                 <g>
                     <g>
-                        <rect x="78" y="78" width="152" height="112" fill="#fff"/>
-                        <rect x="262" y="78" width="152" height="112" fill="#fff"/>
+                        {/*<rect x="78" y="78" width="152" height="112" fill="#fff"/>*/}
+                        {/*<rect x="262" y="78" width="152" height="112" fill="#fff"/>*/}
                         <path d="M446,46v176H46V46h400ZM414,190v-112h-152v112h152ZM230,190v-112H78v112h152Z"
                               className={'fill-accent'}/>
                         <path d="M486,6v256H6V6h480ZM446,222V46H46v176h400Z"  className={'fill-accent'}/>

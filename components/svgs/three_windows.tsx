@@ -6,7 +6,7 @@ export default function Three_windows({className}:{className?:string}){
                 <g>
                     <g>
                         <g>
-                            <rect x="18.51" y="18.51" width="128.74" height="160.93" fill="#fff"/>
+                            {/*<rect x="18.51" y="18.51" width="128.74" height="160.93" fill="#fff"/>*/}
                             <path d="M163.34,2.41v193.12H2.41V2.41h160.93ZM147.25,179.44V18.51H18.51v160.93h128.74Z"
                                   className={'fill-accent'}/>
                         </g>

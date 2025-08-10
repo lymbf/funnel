@@ -20,14 +20,14 @@ type MultiStep = {
 
 type SingleStep = {
     type: "single";
-    field: "step1" | "step2" | "step3" | "step4";
+    field: "step1" | "step2" | "step3" | "step4" | "step5" | "step6";
     question: string;
     options: Option[];
 };
 
 type FormStep = {
     type: "form";
-    field: "step5";
+    field: "step6" | "step7";
 };
 
 type Step = MultiStep | SingleStep | FormStep;

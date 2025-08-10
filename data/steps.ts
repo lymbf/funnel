@@ -16,6 +16,7 @@ import Ten_windows from "@/components/svgs/ten_windows";
 import Double_glass from "@/components/svgs/double_glass";
 import Triple_glass from "@/components/svgs/triple_glass";
 import Check from "@/components/svgs/check";
+import Close from "@/components/svgs/close";
 
 const STEPS: Step[] = [
     {
@@ -66,15 +67,24 @@ const STEPS: Step[] = [
     {
         type: "single",
         field: "step4",
-        question: "Jaki budżet?",
+        question: "Soll die Fachfirma alte Fenster ausbauen und entsorgen?",
         options: [
-            { id: 1, title: "Mały", Icon: Single_window  },
-            { id: 2, title: "Średni", Icon: Single_window  },
-            { id: 3, title: "Duży", Icon: Single_window  },
-            { id: 4, title: "Nieokreślony", Icon: Single_window  },
+            { id: 1, title: "Ja", Icon: Check  },
+            { id: 2, title: "Nein", Icon: Close  },
+            { id: 3, title: "Weiß nicht", Icon: Question_mark  },
         ],
     },
-    { type: "form", field: "step5" },
+    {
+        type: "single",
+        field: "step5",
+        question: "Sind Sie Eigentümer oder Bevollmächtigter?",
+        options: [
+            { id: 1, title: "Ja", Icon: Check  },
+            { id: 2, title: "Nein", Icon: Close  },
+        ],
+    },
+    { type: "form", field: "step6" },
 ];
 
+//Sind Sie Eigentümer oder Bevollmächtigter?
 export {STEPS}
