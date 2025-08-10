@@ -262,7 +262,13 @@ export default function MultiStepForm(): JSX.Element {
                     })}
                 </div>
             </div>
-
+            {currentStep === 7 && <h2 className={'text-[10px] max-w-[600px] text-center'}>Mit dem Klick auf den untenstehenden Button senden
+                Sie Ihre Anfrage zur Vermittlung, erklären Ihr Einverständnis mit unseren AGB und bestätigen, die
+                Datenschutzerklärung gelesen zu haben. Zudem dürfen wir Ihnen per E-Mail Informationen zu ähnlichen
+                Produkten und Dienstleistungen zusenden. Sie können <a href="mailto:info@lewandowski-bau.com">HIER</a>
+                dieser Nutzung jederzeit kostenlos
+                widersprechen.
+            </h2>}
             {/* Nawigacja */}
             <Nav formData = {formData} currentStep={currentStep} isLoading={isLoading} setDirection={setDirection}
                  setCurrentStep={setCurrentStep} answers={answers} isFormValid={isFormValid}

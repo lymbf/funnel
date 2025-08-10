@@ -39,7 +39,8 @@ export default function PrivacyPolicyDEPage() {
                             <div className="mt-3 rounded-2xl border bg-white p-6 shadow-sm">
                                 <p>
                                     <span className="font-medium">Verantwortlicher</span> für die Datenverarbeitung ist
-                                    <span className="px-1 font-semibold">Lewandowski Bauunternehmen, Inh. Cyprian Lewandowski</span> mit Sitz in
+                                    <span className="px-1 font-semibold">Lewandowski Bauunternehmen, Inh. Cyprian Lewandowski</span> mit
+                                    Sitz in
                                     <span className="px-1">Franz-Kail-Str. 18, 51375 Leverkusen</span>,
                                     <span className="px-1">230/5218/3403 / DE368592523</span>.
                                 </p>
@@ -77,38 +78,79 @@ export default function PrivacyPolicyDEPage() {
                         </section>
 
                         <section>
-                            <h2 className="text-xl font-semibold text-gray-900">3. Zwecke und Rechtsgrundlagen der
-                                Verarbeitung</h2>
-                            <ol className="mt-3 list-decimal space-y-2 pl-6">
-                                <li>
-                                    <span className="font-medium">Beantwortung der Anfrage und Kontakt zur Angebotserstellung/Vorkalkulation</span>
-                                    — Art. 6 Abs. 1 lit. <span className="font-medium">b DSGVO</span> (vorvertragliche
-                                    Maßnahmen auf Ihre
-                                    Anfrage) oder Art. 6 Abs. 1 lit. <span
-                                    className="font-medium">f DSGVO</span> (berechtigtes Interesse an der
-                                    Bearbeitung von Anfragen und der Kommunikation mit Interessenten).
-                                </li>
-                                <li>
-                                    <span className="font-medium">Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen</span> —
-                                    Art. 6 Abs.
-                                    1 lit. <span className="font-medium">f DSGVO</span> (berechtigtes Interesse des
-                                    Verantwortlichen).
-                                </li>
-                                <li>
-                                    <span className="font-medium">Erfüllung rechtlicher Verpflichtungen</span> (z. B.
-                                    nach
-                                    Rechnungslegungsvorschriften im Falle eines Vertragsschlusses) — Art. 6 Abs.
-                                    1 lit. <span className="font-medium">c DSGVO</span>.
-                                </li>
-                                <li className="text-gray-600">
-                                    (Wenn Sie zusätzliche Marketing‑Einwilligungen nutzen – ergänzen)
-                                    <span
-                                        className="font-medium">Direktmarketing auf Grundlage einer Einwilligung</span> —
-                                    Art. 6 Abs. 1 lit.
-                                    <span className="font-medium">a DSGVO</span>. <em>Optional – entfernen, wenn keine
-                                    Einwilligungen erhoben werden.</em>
-                                </li>
-                            </ol>
+                            <h2 className="text-xl font-semibold text-gray-900">3. Zwecke und Rechtsgrundlagen</h2>
+                            <div className="mt-3 space-y-6">
+                                <div>
+                                    <p className="font-medium">
+                                        a) Angebotserstellung und vorvertragliche Kommunikation (Art. 6 Abs. 1 lit. b
+                                        DSGVO)
+                                    </p>
+                                    <p className="mt-1">
+                                        zur Beantwortung Ihrer Anfrage, Terminvereinbarung zum Aufmaß, Erstellung einer
+                                        unverbindlichen
+                                        Vorkalkulation sowie Rückfragen hierzu.
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <p className="font-medium">
+                                        b) Verarbeitung auf Basis berechtigter Interessen (Art. 6 Abs. 1 lit. f DSGVO)
+                                    </p>
+                                    <ul className="mt-2 list-disc pl-6 space-y-2">
+                                        <li>
+                                            <p>IT- und Datensicherheit / Spam- und Missbrauchsprävention: z. B. Server-
+                                                und Zugriff-Logs.</p>
+                                            <p className="text-gray-700">
+                                                Berechtigtes Interesse: Gewährleistung der Sicherheit und Verfügbarkeit
+                                                unserer Systeme sowie Abwehr
+                                                rechtswidriger Handlungen.
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p>Dokumentation der Geschäftskommunikation / Rechtsdurchsetzung:
+                                                Aufbewahrung ausgewählter Korrespondenz.</p>
+                                            <p className="text-gray-700">
+                                                Berechtigtes Interesse: Nachweis der Kommunikation sowie Geltendmachung,
+                                                Ausübung oder Verteidigung von Rechtsansprüchen.
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p>Interne Organisation und Qualitätsmanagement: interne
+                                                Vorgangsbearbeitung, Verbesserung unseres Kundenservices.</p>
+                                            <p className="text-gray-700">Berechtigtes Interesse: Effiziente
+                                                Geschäftsabläufe und Servicequalität.</p>
+                                        </li>
+                                    </ul>
+                                    <p className="mt-3 text-sm text-gray-700">
+                                        <span className="font-medium">Widerspruchsrecht:</span> Sie können der
+                                        Verarbeitung auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO
+                                        jederzeit aus Gründen, die sich aus Ihrer besonderen Situation ergeben,
+                                        widersprechen (Art. 21 DSGVO).
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <p className="font-medium">
+                                        c) Telefon- und E-Mail-Marketing (nur mit Einwilligung; Art. 6 Abs. 1 lit. a
+                                        DSGVO i. V. m. § 7 UWG)
+                                    </p>
+                                    <p className="mt-1">
+                                        Sofern Sie zustimmen, nutzen wir Ihre Telefonnummer und/oder E-Mail-Adresse, um
+                                        Ihnen Informationen und
+                                        Angebote zu unseren Produkten und Dienstleistungen (Fenster, Türen, Sonnenschutz
+                                        usw.) zuzusenden bzw.
+                                        Sie hierzu anzurufen.
+                                    </p>
+                                    <p className="mt-1 text-gray-700">
+                                        Die Einwilligung ist freiwillig, nicht an das Absenden des Formulars gebunden
+                                        und kann jederzeit mit Wirkung
+                                        für die Zukunft widerrufen werden, z. B. per E-Mail an [Ihre E-Mail] oder über
+                                        den Abmeldelink in jeder E-Mail.
+                                        Wir protokollieren Ihre Einwilligung (Zeitpunkt, Inhalt, techn. Nachweis, z. B.
+                                        Double-Opt-In).
+                                    </p>
+                                </div>
+                            </div>
                         </section>
 
                         <section>
@@ -145,7 +187,7 @@ export default function PrivacyPolicyDEPage() {
                             <ul className="mt-3 list-disc space-y-2 pl-6">
                                 <li>
                                     für die Dauer der Beantwortung der Anfrage und der Korrespondenz —
-                                    <span className="font-medium">nicht länger als [12] Monate ab der letzten Aktivität in der Sache</span>;
+                                    <span className="font-medium">nicht länger als 6 Monate ab der letzten Aktivität in der Sache</span>;
                                 </li>
                                 <li>
                                     soweit zur Geltendmachung, Ausübung oder Verteidigung von
@@ -182,10 +224,7 @@ export default function PrivacyPolicyDEPage() {
                                 1 angegebenen Kontaktdaten.
                             </p>
                             <p className="mt-2">
-                                Sie haben außerdem das Recht, Beschwerde bei der Aufsichtsbehörde
-                                einzulegen – dem <span className="font-medium">Präsidenten des Amtes für den Schutz personenbezogener Daten</span>
-                                (ul. Stawki 2, 00‑193 Warszawa, uodo.gov.pl), wenn Sie der Ansicht sind, dass
-                                wir Ihre Daten unrechtmäßig verarbeiten.
+                                Zuständige Aufsichtsbehörde: Berliner Beauftragte für Datenschutz und Informationsfreiheit.
                             </p>
                         </section>
 
@@ -239,7 +278,8 @@ export default function PrivacyPolicyDEPage() {
                                 Formular</h3>
                             <div className="mt-3 space-y-2 text-gray-700">
                                 <p>
-                                    <span className="font-medium">Verantwortlicher:</span> Lewandowski Bauunternehmen, Inh. Cyprian Lewandowski,
+                                    <span className="font-medium">Verantwortlicher:</span> Lewandowski Bauunternehmen,
+                                    Inh. Cyprian Lewandowski,
                                     mit Sitz inFranz-Kail-Str. 18, 51375 Leverkusen, E‑Mail: info@lewandowski-bau.com.
                                 </p>
                                 <p>
