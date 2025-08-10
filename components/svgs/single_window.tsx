@@ -1,6 +1,6 @@
 export default function Single_window({className}: { className?: string }) {
     return (
-        <svg className={className} id="Layer_2" data-name="Layer 2"  viewBox="0 0 412 492">
+        <svg className={`p-[2px] ${className}`} id="Layer_2" data-name="Layer 2"  viewBox="0 0 412 492">
             <g id="Icons">
                 <g>
                     <g>
@@ -27,5 +27,6 @@ export default function Single_window({className}: { className?: string }) {
                 </g>
             </g>
         </svg>
+
     )
 }

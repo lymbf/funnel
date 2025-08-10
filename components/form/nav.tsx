@@ -46,7 +46,7 @@ export default function Nav({
                 ? Boolean(answers[stepDef.field])
                 : true;
     return (
-        <div className="flex justify-between mt-6">
+        <div className="flex justify-between mt-4 sm:mt-6">
             <button
                 type="button"
                 onClick={goBack}

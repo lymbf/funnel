@@ -215,13 +215,13 @@ export default function MultiStepForm(): JSX.Element {
 
 
     return (
-        <div className={`${lato.className} relative w-full max-w-[1200px] flex flex-col items-center  p-6`}>
+        <div className={`${lato.className} relative w-full max-w-[1100px] flex flex-col items-center gap-2  sm:p-6`}>
             {/* Progress bar */}
             <ProgressBar progressRefs={progressRefs}/>
 
             {/* Animowany kontener */}
-            <div ref={containerRef} className=" relative overflow-hidden min-h-[360px] w-full max-w-[1200px] " aria-live="polite">
-                <div className="step-content old absolute top-0 left-0 w-full pointer-events-none">
+            <div ref={containerRef} className=" relative overflow-hidden min-h-[360px] w-full max-w-[1200px]" aria-live="polite">
+                <div className="step-content  old absolute top-0 left-0 w-full pointer-events-none flex justify-center">
                     {RenderStep({
                         answers,
                         stepIndex: currentStep,
@@ -236,7 +236,7 @@ export default function MultiStepForm(): JSX.Element {
                         goNext
                     })}
                 </div>
-                <div className="step-content new relative w-full">
+                <div className="step-content new relative w-full flex justify-center">
                     {RenderStep({
                         answers,
                         stepIndex: currentStep,

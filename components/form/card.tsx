@@ -12,7 +12,7 @@ export default function Card({active, children, onClick}: CardProps){
             onClick={onClick}
             className={`group rounded-2xl border box-border p-4 md:p-5 text-left transition shadow-sm hover:shadow-md focus:outline-none
         ${active ? "border-[3px] border-accent bg-blue-100" : "border-accent bg-white hover:bg-gray-50"}
-       w-[300px] h-[100px] sm:w-[200px] sm:h-[240px]
+       w-full h-[70px] sm:w-[200px] sm:h-[240px]
         `}
         >
             {children}

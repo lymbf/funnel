@@ -37,7 +37,7 @@ export default function Field({
                 onChange={onChange}
                 onBlur={onBlur}
                 className={`w-full border rounded-lg p-3 outline-none transition
-          ${error ? "border-red-400 focus:ring-2 focus:ring-red-300" : "border-gray-300 focus:ring-2 focus:ring-blue-300"}`}
+          ${error ? "border-red-400 focus:ring-2 focus:ring-red-300" : "border-accent focus:ring-2 focus:ring-blue-300"}`}
                 aria-invalid={Boolean(error)}
                 aria-describedby={error ? `${name}-err` : undefined}
             />

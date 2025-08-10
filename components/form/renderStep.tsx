@@ -78,9 +78,9 @@ export default function RenderStep({
 
     if (def.type === "multi" || def.type === "single") {
         return (
-            <div className={' flex flex-col items-center'}>
+            <div className={' flex flex-col items-center w-full'}>
                 <h2 className="text-xl font-bold mb-4 max-w-[600px] text-center">{def.question}</h2>
-                <div className="flex flex-col gap-2 sm:flex-row">
+                <div className="flex flex-col gap-2 sm:flex-row w-full sm:w-auto">
                     {def.options.map(({id, title, Icon}) => {
                         const active = def.type === "multi" ? answers.step0.includes(title) : answers[def.field] === title;
                         return (
@@ -89,16 +89,14 @@ export default function RenderStep({
                                 active={active}
                                 onClick={() => (def.type === "multi" ? toggleMulti(title) : setSingle(def.field, title))}
                             >
-                                <div className="flex flex-col items-center gap-3 h-full justify-center">
+                                <div className="relative flex flex-row sm:flex-col items-center gap-3 h-full justify-between sm:justify-center">
                                     <span
-                                        className={`inline-flex h-20 w-28 items-center justify-center rounded-xl
-                                
-                                      mt-auto
+                                        className={`mb-6 inline-flex h-10 w-14 sm:h-20 sm:w-28 items-center justify-center rounded-xl
                                       `}
                                     >
                                       <Icon  className = 'h-full w-auto'/>
                                     </span>
-                                    <span className="font-semibold mt-auto">{title}</span>
+                                    <span className="font-semibold absolute bottom-2  w-full max-w-[158px] text-center">{title}</span>
                                 </div>
                             </Card>
                         );
@@ -110,11 +108,11 @@ export default function RenderStep({
 
 // krok 6 — dane + podsumowanie
     return (
-        <div>
+        <div className = 'flex flex-col items-center w-full max-w-[900px]'>
             <h2 className="text-xl font-bold mb-4">Dane kontaktowe</h2>
 
             {/* Podsumowanie */}
-            <div className="mb-4 rounded-2xl border border-gray-200 bg-gray-50 p-4">
+            <div className="hidden sm:blockmb-4 rounded-2xl border border-gray-200 bg-gray-50 p-4">
                 <div className="mb-2 font-semibold">Podsumowanie:</div>
                 <ul className="text-sm text-gray-700 space-y-1">
                     <li><span
@@ -127,7 +125,7 @@ export default function RenderStep({
                 </ul>
             </div>
 
-            <div className="grid grid-cols-1 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full">
                 <Field
                     label="Imię"
                     name="name"
@@ -174,7 +172,7 @@ export default function RenderStep({
                         placeholder="Dodatkowe informacje"
                         value={formData.notes}
                         onChange={(e) => setFormData((p) => ({...p, notes: e.target.value}))}
-                        className="w-full border rounded-lg p-3 min-h-[96px] border-gray-300 focus:ring-2 focus:ring-blue-300 outline-none"
+                        className="w-full border rounded-lg p-3 min-h-[96px] border-accent focus:ring-2 focus:ring-blue-300 outline-none"
                     />
                 </div>
             </div>
