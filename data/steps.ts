@@ -1,10 +1,4 @@
-import {
-    Flame, Bolt, Waves, Sprout,
-    Lightbulb, Cog, Package, Rocket,
-    CalendarDays, CalendarRange, CalendarClock, Hourglass,
-    Building2, Trees, Laptop, HelpCircle,
-    PiggyBank, Wallet, Banknote, CircleHelp,
-} from "lucide-react";
+
 import {Step} from "@/components/form/types";
 import Single_window from "@/components/svgs/single_window";
 import Roof_window from "@/components/svgs/roof_window";
@@ -25,8 +19,8 @@ const STEPS: Step[] = [
         question: "Welchen Fenstertyp möchten Sie einbauen oder austauschen lassen? (Mehrfachauswahl möglich)",
         options: [
             { id: 1, title: "Standardfenster", Icon: Single_window },
-            { id: 2, title: "Dachfenster", Icon: Roof_window },
-            { id: 3, title: "Kellerfenster", Icon: Basement_window  },
+            { id: 2, title: "Schiebetür", Icon: Roof_window },
+            { id: 3, title: "Haustür", Icon: Basement_window  },
             { id: 4, title: "Andere Typen", Icon: Question_mark  },
         ],
     },

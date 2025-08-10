@@ -62,7 +62,7 @@ export default function Nav({
                 disabled={currentStep === 0 || isLoading}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border bg-white hover:bg-gray-50 disabled:opacity-50"
             >
-                <ChevronLeft size={18}/> Wstecz
+                <ChevronLeft size={18}/> Zurück
             </button>
 
             {currentStep < STEPS.length - 1 ? (
@@ -70,9 +70,9 @@ export default function Nav({
                     type="button"
                     onClick={goNext}
                     disabled={!canGoNext || isLoading || checkZipcodeDisabledButton()}
-                    className="ml-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50"
+                    className="ml-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-all duration-100 disabled:opacity-50"
                 >
-                    Naprzód <ChevronRight size={18}/>
+                    Weiter <ChevronRight size={18}/>
                 </button>
             ) : (
                 <button
@@ -81,7 +81,7 @@ export default function Nav({
                     disabled={isLoading || !isFormValid}
                     className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 disabled:opacity-50"
                 >
-                    {isLoading ? "Wysyłanie…" : <>Wyślij <Send size={18}/></>}
+                    {isLoading ? "Wysyłanie…" : <>Senden <Send size={18}/></>}
                 </button>
             )}
         </div>
