@@ -1,8 +1,8 @@
 import {ChevronLeft, ChevronRight, Send} from "lucide-react";
 import {STEPS} from "@/data/steps";
 import {Dispatch, SetStateAction} from "react";
-import {Answers, Direction} from "@/components/form/types";
-
+import {Answers, Direction, FormState} from "@/components/form/types";
+import {zipcodeRegex} from "@/components/form/validation";
 
 interface NavProps {
     currentStep: number;
@@ -11,7 +11,8 @@ interface NavProps {
     setCurrentStep: Dispatch<SetStateAction<number>>,
     answers: Answers,
     isFormValid: boolean,
-    handleSubmit: () => Promise<void>
+    handleSubmit: () => Promise<void>,
+    formData: FormState,
 }
 
 
@@ -22,7 +23,8 @@ export default function Nav({
                                 setCurrentStep,
                                 handleSubmit,
                                 answers,
-                                isFormValid
+                                isFormValid,
+                                formData
                             }: NavProps) {
 
     const goNext = () => {
@@ -45,6 +47,13 @@ export default function Nav({
             : stepDef.type === "single"
                 ? Boolean(answers[stepDef.field])
                 : true;
+    const checkZipcodeDisabledButton = ()=>{
+        if(currentStep === 6 && !zipcodeRegex.test(formData.zipcode.trim())){
+            return true
+        }else{
+            return false
+        }
+    }
     return (
         <div className="flex justify-between mt-4 sm:mt-6">
             <button
@@ -60,7 +69,7 @@ export default function Nav({
                 <button
                     type="button"
                     onClick={goNext}
-                    disabled={!canGoNext || isLoading}
+                    disabled={!canGoNext || isLoading || checkZipcodeDisabledButton()}
                     className="ml-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50"
                 >
                     Naprzód <ChevronRight size={18}/>

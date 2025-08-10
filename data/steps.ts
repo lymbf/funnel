@@ -83,7 +83,8 @@ const STEPS: Step[] = [
             { id: 2, title: "Nein", Icon: Close  },
         ],
     },
-    { type: "form", field: "step6" },
+    { type: "zipCode", field: "step6" },
+    { type: "form", field: "step7" },
 ];
 
 //Sind Sie Eigentümer oder Bevollmächtigter?

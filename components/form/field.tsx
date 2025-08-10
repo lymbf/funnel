@@ -26,7 +26,7 @@ export default function Field({
                               }: FieldProps) {
     return (
         <div>
-            <label className="block text-sm font-medium text-gray-800 mb-1">
+            <label className={`block text-sm font-medium text-gray-800 mb-1 ${name === 'zipcode' ? 'w-[270px]' : ''}`}>
                 {label} {required && <span className="text-red-500">*</span>}
             </label>
             <input

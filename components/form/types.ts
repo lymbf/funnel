@@ -1,7 +1,7 @@
 import {LucideIcon} from "lucide-react";
 import {JSX} from "react";
 
-type StepField = "step0" | "step1" | "step2" | "step3" | "step4" | "step5";
+type StepField = "step0" | "step1" | "step2" | "step3" | "step4" | "step5" | 'step6' | 'step7';
 
 type Direction = "forward" | "backward";
 
@@ -20,17 +20,22 @@ type MultiStep = {
 
 type SingleStep = {
     type: "single";
-    field: "step1" | "step2" | "step3" | "step4" | "step5" | "step6";
+    field: "step1" | "step2" | "step3" | "step4" | "step5";
     question: string;
     options: Option[];
 };
 
 type FormStep = {
     type: "form";
-    field: "step6" | "step7";
+    field: "step7";
 };
 
-type Step = MultiStep | SingleStep | FormStep;
+type ZipCodeStep = {
+    type: 'zipCode';
+    field: 'step6'
+}
+
+type Step = MultiStep | SingleStep | FormStep | ZipCodeStep;
 
 interface Answers {
     step0: string[];
@@ -38,6 +43,7 @@ interface Answers {
     step2: string | null;
     step3: string | null;
     step4: string | null;
+    step5: string | null
 }
 
 interface FormState {
@@ -46,6 +52,7 @@ interface FormState {
     phone: string;
     email: string;
     notes: string;
+    zipcode:string;
 }
 
 interface TouchedState {
@@ -53,6 +60,7 @@ interface TouchedState {
     surname: boolean;
     phone: boolean;
     email: boolean;
+    zipcode:boolean;
 }
 
 export type {TouchedState, FormState, Answers, Step, FormStep, SingleStep, MultiStep, Option, Direction, StepField}

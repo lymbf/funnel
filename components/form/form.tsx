@@ -3,7 +3,7 @@
 import {JSX, useEffect, useRef, useState} from "react";
 import {gsap} from "gsap";
 import {Answers, Direction, FormState, TouchedState} from './types'
-import {emailRegex, isPhoneValid} from "@/components/form/validation";
+import {emailRegex, isPhoneValid, zipcodeRegex} from "@/components/form/validation";
 import ProgressBar from "@/components/progressBar/progressBar";
 import RenderStep from "@/components/form/renderStep";
 import Nav from "@/components/form/nav";
@@ -12,8 +12,8 @@ import {STEPS} from "@/data/steps";
 
 const lato = Lato({
     variable: '--font-lato-sans',
-    weight:['100', '300', '400', '700', '900'],
-    subsets:['latin']
+    weight: ['100', '300', '400', '700', '900'],
+    subsets: ['latin']
 })
 
 const LS_KEY = "msf_state_v1";
@@ -28,6 +28,7 @@ export default function MultiStepForm(): JSX.Element {
         step2: null,
         step3: null,
         step4: null,
+        step5: null
     });
 
     const [formData, setFormData] = useState<FormState>({
@@ -36,6 +37,7 @@ export default function MultiStepForm(): JSX.Element {
         phone: "",
         email: "",
         notes: "",
+        zipcode:''
     });
 
     const [touched, setTouched] = useState<TouchedState>({
@@ -43,6 +45,7 @@ export default function MultiStepForm(): JSX.Element {
         surname: false,
         phone: false,
         email: false,
+        zipcode: false,
     });
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -89,11 +92,11 @@ export default function MultiStepForm(): JSX.Element {
 
     useEffect(() => {
         gsap.set([...progressRefs.current], {
-            scaleX:0
+            scaleX: 0
         })
         const seg = progressRefs.current[0];
-        gsap.set(seg,{
-            scaleX:1
+        gsap.set(seg, {
+            scaleX: 1
         })
     }, []);
 
@@ -153,14 +156,19 @@ export default function MultiStepForm(): JSX.Element {
             : !emailRegex.test(formData.email.trim())
                 ? "Podaj poprawny adres e-mail"
                 : "",
+        zipcode: !formData.zipcode.trim()
+            ? 'Podaj kod pocztowy'
+            : !zipcodeRegex.test(formData.zipcode.trim())
+                ? 'Podaj poprawny kod pocztowy'
+                : ''
     } as const;
 
-    const isFormValid = !clientErrors.name && !clientErrors.surname && !clientErrors.phone && !clientErrors.email;
+    const isFormValid = !clientErrors.name && !clientErrors.surname && !clientErrors.phone && !clientErrors.email && !clientErrors.zipcode;
 
     /* handle submit */
     const handleSubmit = async (): Promise<void> => {
         // pokaż błędy jeśli user nie dotknął pól
-        setTouched({name: true, surname: true, phone: true, email: true});
+        setTouched({name: true, surname: true, phone: true, email: true, zipcode:true});
         if (!isFormValid) return;
 
         setIsLoading(true);
@@ -174,7 +182,8 @@ export default function MultiStepForm(): JSX.Element {
                 phone: formData.phone.trim(),
                 email: formData.email.trim(),
                 notes: formData.notes.trim(),
-                answers: [answers.step0, answers.step1, answers.step2, answers.step3, answers.step4] as const,
+                zipcode:formData.zipcode.trim(),
+                answers: [answers.step0, answers.step1, answers.step2, answers.step3, answers.step4, answers.step5] as const,
             };
 
             const res = await fetch("/api/form", {
@@ -199,9 +208,9 @@ export default function MultiStepForm(): JSX.Element {
             // wyczyść i localStorage
             window.setTimeout(() => {
                 setCurrentStep(0);
-                setAnswers({step0: [], step1: null, step2: null, step3: null, step4: null});
-                setFormData({name: "", surname: "", phone: "", email: "", notes: ""});
-                setTouched({name: false, surname: false, phone: false, email: false});
+                setAnswers({step0: [], step1: null, step2: null, step3: null, step4: null, step5: null});
+                setFormData({name: "", surname: "", phone: "", email: "", notes: "", zipcode: ''});
+                setTouched({name: false, surname: false, phone: false, email: false, zipcode:false});
                 setSuccessMessage("");
                 if (typeof window !== "undefined") localStorage.removeItem(LS_KEY);
             }, 2400);
@@ -220,7 +229,8 @@ export default function MultiStepForm(): JSX.Element {
             <ProgressBar progressRefs={progressRefs}/>
 
             {/* Animowany kontener */}
-            <div ref={containerRef} className=" relative overflow-hidden min-h-[360px] w-full max-w-[1200px]" aria-live="polite">
+            <div ref={containerRef} className=" relative overflow-hidden min-h-[360px] w-full max-w-[1200px]"
+                 aria-live="polite">
                 <div className="step-content  old absolute top-0 left-0 w-full pointer-events-none flex justify-center">
                     {RenderStep({
                         answers,
@@ -254,8 +264,9 @@ export default function MultiStepForm(): JSX.Element {
             </div>
 
             {/* Nawigacja */}
-            <Nav currentStep={currentStep} isLoading={isLoading} setDirection={setDirection}
-                 setCurrentStep={setCurrentStep} answers={answers} isFormValid={isFormValid} handleSubmit={handleSubmit}/>
+            <Nav formData = {formData} currentStep={currentStep} isLoading={isLoading} setDirection={setDirection}
+                 setCurrentStep={setCurrentStep} answers={answers} isFormValid={isFormValid}
+                 handleSubmit={handleSubmit}/>
         </div>
     );
 }

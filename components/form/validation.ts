@@ -5,4 +5,6 @@ const isPhoneValid = (str: string): boolean => {
     return d.length === 9 || (d.length === 11 && d.startsWith("48"));
 };
 
-export { emailRegex, phoneDigits, isPhoneValid };
+const zipcodeRegex = /^\d{5}$/
+
+export { emailRegex, phoneDigits, isPhoneValid, zipcodeRegex };

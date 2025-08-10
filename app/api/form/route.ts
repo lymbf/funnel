@@ -1,15 +1,19 @@
 import { NextResponse, type NextRequest } from "next/server";
+import {Resend} from "resend";
 // import { Resend } from "resend";
 //
-// const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-type AnswersPayload = [string[], string | null, string | null, string | null, string | null];
+//re_hdbi5AFW_PX56foY7KVEaLgPDE7Df6m4L
+console.log('api key: ', process.env.RESEND_API_KEY)
+type AnswersPayload = [string[], string | null, string | null, string | null, string | null, string | null];
 
 interface FormPayload {
     name: string;
     surname: string;
     phone: string;
     email: string;
+    zipcode:string;
     notes?: string;
     answers: AnswersPayload;
 }
@@ -29,10 +33,12 @@ export async function POST(req: NextRequest) {
         const surname = body.surname?.trim() ?? "";
         const phone = body.phone?.trim() ?? "";
         const email = body.email?.trim() ?? "";
+        const zipcode = body.zipcode?.trim() ?? "";
         const notes = body.notes?.trim() ?? "";
         const answers = body.answers;
 
-        console.log('name: ', name, 'surname: ', surname, 'phone: ', phone, 'answers: ', answers)
+        console.log('asw length: ', answers?.length)
+        console.log('answers: ', answers)
         // Walidacja podstawowa
         if (!name || !surname || !phone || !email) {
             return NextResponse.json({ message: "Proszę wypełnić wszystkie wymagane pola" }, { status: 400 });
@@ -43,11 +49,11 @@ export async function POST(req: NextRequest) {
         if (!isPhoneValid(phone)) {
             return NextResponse.json({ message: "Niepoprawny numer telefonu" }, { status: 400 });
         }
-        if (!answers || !Array.isArray(answers) || answers.length !== 5) {
+        if (!answers || !Array.isArray(answers) || answers.length !== 6) {
             return NextResponse.json({ message: "Brak kompletu odpowiedzi z formularza" }, { status: 400 });
         }
 
-        const [multi, s1, s2, s3, s4] = answers;
+        const [multi, s1, s2, s3, s4, s5] = answers;
 
         const html = `
       <h1>Nowe zgłoszenie</h1>
@@ -55,6 +61,7 @@ export async function POST(req: NextRequest) {
       <p><strong>Nazwisko:</strong> ${surname}</p>
       <p><strong>Telefon:</strong> ${phone}</p>
       <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Zip Code:</strong> ${zipcode}</p>
       <p><strong>Uwagi:</strong> ${notes || "(brak)"}</p>
       <hr />
       <h2>Odpowiedzi:</h2>
@@ -64,15 +71,16 @@ export async function POST(req: NextRequest) {
         <li><strong>Krok 3:</strong> ${s2 ?? "—"}</li>
         <li><strong>Krok 4:</strong> ${s3 ?? "—"}</li>
         <li><strong>Krok 5:</strong> ${s4 ?? "—"}</li>
+          <li><strong>Krok 6:</strong> ${s5 ?? "—"}</li>
       </ol>
     `;
-
-        // await resend.emails.send({
-        //     from: "Formularz <noreply@twojadomena.pl>",
-        //     to: "twojemail@twojadomena.pl",
-        //     subject: "Nowe zgłoszenie z formularza",
-        //     html,
-        // });
+        console.log('email string: ', html)
+        await resend.emails.send({
+            from: 'onboarding@resend.dev',
+            to: "the.prommers.pl@gmail.com",
+            subject: "Nowe zgłoszenie z formularza",
+            html,
+        });
 
         return NextResponse.json({ message: "Formularz wysłany pomyślnie!" }, { status: 200 });
     } catch (error) {

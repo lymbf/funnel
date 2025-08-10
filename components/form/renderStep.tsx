@@ -4,9 +4,9 @@ import {STEPS} from "@/data/steps";
 import Card from "@/components/form/card";
 import {CheckCircle2} from "lucide-react";
 import {Answers, FormState, StepField, TouchedState} from "@/components/form/types";
-import {Dispatch, RefObject, SetStateAction, useState} from "react";
+import {Dispatch, RefObject, SetStateAction, useEffect, useState} from "react";
 import Field from "@/components/form/field";
-import {emailRegex, isPhoneValid} from "@/components/form/validation";
+import {emailRegex, isPhoneValid, zipcodeRegex} from "@/components/form/validation";
 
 interface RenderProps {
     answers: Answers,
@@ -51,11 +51,10 @@ export default function RenderStep({
         });
     };
 // —— wybor single
-    const setSingle = (field: Exclude<StepField, "step0" | "step5">, title: string) => {
+    const setSingle = (field: Exclude<StepField, "step0" | "step6" | 'step7'>, title: string) => {
         setAnswers((prev) => ({...prev, [field]: title}));
         goNext()
     }
-
 
     const clientErrors = {
         name: !formData.name.trim() ? "Imię jest wymagane" : formData.name.trim().length < 2 ? "Imię jest za krótkie" : "",
@@ -71,6 +70,11 @@ export default function RenderStep({
             : !emailRegex.test(formData.email.trim())
                 ? "Podaj poprawny adres e-mail"
                 : "",
+        zipcode: !formData.zipcode.trim()
+            ? 'Podaj kod pocztowy'
+            : !zipcodeRegex.test(formData.zipcode.trim())
+                ? 'Podaj poprawny kod pocztowy'
+                : ''
     } as const;
 
     const isFormValid = !clientErrors.name && !clientErrors.surname && !clientErrors.phone && !clientErrors.email;
@@ -104,6 +108,27 @@ export default function RenderStep({
                 </div>
             </div>
         );
+    }
+
+    if(def.type === 'zipCode'){
+        return (
+            <div className={'flex flex-col items-center w-full max-w-[900px]'}>
+                <h2 className={'text-xl font-bold mb-8'}>Wo soll der Einbau der Fenster erfolgen?</h2>
+                <Field
+                    label="Posteleitzahl"
+                    name="zipcode"
+                    value={formData.zipcode}
+                    onChange={(e) => setFormData((p) => ({...p, zipcode: e.target.value}))}
+                    onBlur={() => setTouched((t) => ({...t, zipcode: true}))}
+                    error={touched.zipcode ? clientErrors.zipcode : ""}
+                    required
+                    placeholder="10999"
+                />
+                <p className={'text-slate-600 mt-2'}>
+                    Für die Suche nach regionalen Fachfirmen
+                </p>
+            </div>
+        )
     }
 
 // krok 6 — dane + podsumowanie
