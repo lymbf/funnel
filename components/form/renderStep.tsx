@@ -91,12 +91,12 @@ export default function RenderStep({
                             >
                                 <div className="relative flex flex-row sm:flex-col items-center gap-3 h-full justify-between sm:justify-center">
                                     <span
-                                        className={`mb-6 inline-flex h-10 w-14 sm:h-20 sm:w-28 items-center justify-center rounded-xl
+                                        className={`sm:mb-6 inline-flex h-10 w-14 sm:h-20 sm:w-28 items-center justify-center rounded-xl
                                       `}
                                     >
                                       <Icon  className = 'h-full w-auto'/>
                                     </span>
-                                    <span className="font-semibold absolute bottom-2  w-full max-w-[158px] text-center">{title}</span>
+                                    <span className="font-semibold sm:absolute bottom-2  w-full max-w-[158px] text-center">{title}</span>
                                 </div>
                             </Card>
                         );
