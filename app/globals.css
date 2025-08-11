@@ -4,6 +4,8 @@
 /* 28 100% 50% orange */
 /* 191 100% 50% light blue */
 /* 240 100% 25% navy  blue */
+/*  73 74% 58% lime */
+/*  184 85% 27% see color  */
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -18,7 +20,7 @@
     --secondary-foreground: 0 0% 9%;
     --muted: 0 0% 96.1%;
     --muted-foreground: 0 0% 45.1%;
-    --accent: 191 100% 50%;
+    --accent: 184 85% 27%;
     --accent-foreground: 0 0% 9%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;

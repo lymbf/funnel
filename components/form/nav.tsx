@@ -81,6 +81,40 @@ export default function Nav({
         return ()=>{removeEventListener('keypress', handleKeyPress)}
     }, [answers, currentStep, formData]);
 
+    /*  handle mouse btn 4 and 5 navigation forward and back  */
+
+    useEffect(() => {
+        const validateNext = ()=>{
+            if( stepDef.type === "multi") return (answers.step0?.length || 0) > 0
+            if(stepDef.type === 'single') return Boolean(answers[stepDef.field])
+            if(stepDef.type === 'zipCode') return zipcodeRegex.test(formData.zipcode.trim())
+            return true
+        }
+        const validateButton = ()=>{
+            return  validateNext()  && !isLoading
+        }
+        const handleMouseDown = (event:MouseEvent)=>{
+            event.preventDefault()
+            event.stopPropagation()
+            if (event.button === 3) {
+                event.preventDefault();
+                event.stopPropagation();
+                goBack()
+            } else if (event.button === 4) {
+                event.preventDefault();
+                event.stopPropagation();
+                if(validateButton()){
+                    goNext()
+                }
+            }
+        }
+
+        window.addEventListener('mousedown', handleMouseDown)
+        return ()=>{
+            window.removeEventListener('mousedown', handleMouseDown)
+        }
+    }, [answers, currentStep, formData]);
+
 
     return (
         <div className="flex justify-between mt-4 sm:mt-6">
