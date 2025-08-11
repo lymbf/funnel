@@ -31,6 +31,7 @@ export default function Nav({
         if (currentStep >= STEPS.length - 1) return;
         setDirection("forward");
         setCurrentStep((s) => s + 1);
+
     };
 
     const goBack = () => {
@@ -47,10 +48,10 @@ export default function Nav({
             : stepDef.type === "single"
                 ? Boolean(answers[stepDef.field])
                 : true;
-    const checkZipcodeDisabledButton = ()=>{
-        if(currentStep === 6 && !zipcodeRegex.test(formData.zipcode.trim())){
+    const checkZipcodeDisabledButton = () => {
+        if (currentStep === 6 && !zipcodeRegex.test(formData.zipcode.trim())) {
             return true
-        }else{
+        } else {
             return false
         }
     }

@@ -10,6 +10,7 @@ import Nav from "@/components/form/nav";
 import {Lato} from "next/font/google";
 import {STEPS} from "@/data/steps";
 import Link from "next/link";
+import {useGSAP} from "@gsap/react";
 
 const lato = Lato({
     variable: '--font-lato-sans',
@@ -18,6 +19,7 @@ const lato = Lato({
 })
 
 const LS_KEY = "msf_state_v1";
+const NEXT_DELAY = 2000
 
 export default function MultiStepForm(): JSX.Element {
     const [currentStep, setCurrentStep] = useState<number>(0); // 0..5
@@ -103,20 +105,21 @@ export default function MultiStepForm(): JSX.Element {
 
     /* —— ANIMACJE (slide-out + slide-in, progress) */
 
-    useEffect(() => {
+    useGSAP(() => {
+
         if (!containerRef.current) return;
         const oldStep = containerRef.current.querySelector(".step-content.old") as HTMLElement | null;
         const newStep = containerRef.current.querySelector(".step-content.new") as HTMLElement | null;
         if (!oldStep || !newStep) return;
 
         const xOffset = direction === "forward" ? -60 : 60;
-        const tl = gsap.timeline();
+        const tl = gsap.timeline({});
 
         tl.to(oldStep, {x: xOffset, opacity: 0, duration: 0.28, ease: "power2.in"})
             .fromTo(
                 newStep,
                 {x: -xOffset, opacity: 0},
-                {x: 0, opacity: 1, duration: 0.32, ease: "power2.out"},
+                {x: 0, opacity: 1, duration: 0.32, ease: "power2.out", onComplete:()=>{console.log('new step animation complete')}},
                 "<"
             );
 
@@ -137,9 +140,13 @@ export default function MultiStepForm(): JSX.Element {
     }, [currentStep, direction]);
 
     const goNext = () => {
+
         if (currentStep >= STEPS.length - 1) return;
         setDirection("forward");
-        setCurrentStep((s) => s + 1);
+        console.log('go next execution')
+
+            setCurrentStep((s) => s + 1);
+
     };
 
     /* —— walidacja klienta */

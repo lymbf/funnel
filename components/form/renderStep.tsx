@@ -59,7 +59,11 @@ export default function RenderStep({
 // —— wybor single
     const setSingle = (field: Exclude<StepField, "step0" | "step6" | 'step7'>, title: string) => {
         setAnswers((prev) => ({...prev, [field]: title}));
-        goNext()
+
+        setTimeout(()=>{
+            goNext()
+        }, 400)
+
     }
 
     const clientErrors = {
