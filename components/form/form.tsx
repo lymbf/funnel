@@ -3,7 +3,7 @@
 import {JSX, useEffect, useRef, useState} from "react";
 import {gsap} from "gsap";
 import {Answers, Direction, FormState, TouchedState} from './types'
-import {emailRegex, isPhoneValid, zipcodeRegex} from "@/components/form/validation";
+import {emailRegex, isPhoneValid, phoneRegex, zipcodeRegex} from "@/components/form/validation";
 import ProgressBar from "@/components/progressBar/progressBar";
 import RenderStep from "@/components/form/renderStep";
 import Nav from "@/components/form/nav";
@@ -144,23 +144,23 @@ export default function MultiStepForm(): JSX.Element {
 
     /* —— walidacja klienta */
     const clientErrors = {
-        name: !formData.name.trim() ? "Imię jest wymagane" : formData.name.trim().length < 2 ? "Imię jest za krótkie" : "",
+        name: !formData.name.trim() ? "Pflichtfeld" : formData.name.trim().length < 2 ? "Vorname ist zu kurz" : "",
         surname:
-            !formData.surname.trim() ? "Nazwisko jest wymagane" : formData.surname.trim().length < 2 ? "Nazwisko jest za krótkie" : "",
+            !formData.surname.trim() ? "Pflichtfeld" : formData.surname.trim().length < 2 ? "Nachname ist zu kurz" : "",
         phone: !formData.phone.trim()
-            ? "Telefon jest wymagany"
-            : !isPhoneValid(formData.phone)
-                ? "Podaj poprawny numer (np. +48 123 456 789)"
+            ? "Pflichtfeld"
+            : !phoneRegex.test(formData.zipcode.trim())
+                ? "Bitte eine gültige Nummer eingeben."
                 : "",
         email: !formData.email.trim()
-            ? "E-mail jest wymagany"
+            ? "Pflichtfeld"
             : !emailRegex.test(formData.email.trim())
-                ? "Podaj poprawny adres e-mail"
+                ? "Bitte geben Sie eine gültige E-Mail-Adresse ein."
                 : "",
         zipcode: !formData.zipcode.trim()
             ? 'Podaj kod pocztowy'
             : !zipcodeRegex.test(formData.zipcode.trim())
-                ? 'Podaj poprawny kod pocztowy'
+                ? 'Bitte geben Sie eine gültige Postleitzahl ein.'
                 : ''
     } as const;
 
