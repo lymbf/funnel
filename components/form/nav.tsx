@@ -132,7 +132,7 @@ export default function Nav({
                     type="button"
                     onClick={goNext}
                     disabled={!canGoNext || isLoading || checkZipcodeDisabledButton()}
-                    className="ml-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-all duration-100 disabled:opacity-50"
+                    className="ml-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-accent text-white hover:opacity-80 transition-all duration-100 disabled:opacity-50"
                 >
                     Weiter <ChevronRight size={18}/>
                 </button>
