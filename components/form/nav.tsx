@@ -1,6 +1,6 @@
 import {ChevronLeft, ChevronRight, Send} from "lucide-react";
 import {STEPS} from "@/data/steps";
-import {Dispatch, SetStateAction} from "react";
+import {Dispatch, SetStateAction, useEffect} from "react";
 import {Answers, Direction, FormState} from "@/components/form/types";
 import {zipcodeRegex} from "@/components/form/validation";
 
@@ -40,6 +40,9 @@ export default function Nav({
         setCurrentStep((s) => s - 1);
     };
 
+    /*  handle Go Next via enter  */
+
+
     // —— walidacja „Naprzód”
     const stepDef = STEPS[currentStep];
     const canGoNext =
@@ -55,6 +58,30 @@ export default function Nav({
             return false
         }
     }
+
+    useEffect(() => {
+
+        const validateNext = ()=>{
+            if( stepDef.type === "multi") return (answers.step0?.length || 0) > 0
+            if(stepDef.type === 'single') return Boolean(answers[stepDef.field])
+            if(stepDef.type === 'zipCode') return zipcodeRegex.test(formData.zipcode.trim())
+            return true
+        }
+        const validateButton = ()=>{
+            return  validateNext()  && !isLoading
+        }
+        const handleKeyPress = (e:KeyboardEvent)=>{
+
+            if (e.key === 'Enter'){
+                e.preventDefault()
+                if(validateButton()){
+                    goNext()
+                }
+            }
+        }
+        window.addEventListener('keypress', handleKeyPress)
+        return ()=>{removeEventListener('keypress', handleKeyPress)}
+    }, [answers, currentStep, formData]);
     return (
         <div className="flex justify-between mt-4 sm:mt-6">
             <button
