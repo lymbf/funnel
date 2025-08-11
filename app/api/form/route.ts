@@ -66,12 +66,12 @@ export async function POST(req: NextRequest) {
       <hr />
       <h2>Odpowiedzi:</h2>
       <ol>
-        <li><strong>Krok 1:</strong> ${Array.isArray(multi) && multi.length ? multi.join(", ") : "—"}</li>
-        <li><strong>Krok 2:</strong> ${s1 ?? "—"}</li>
-        <li><strong>Krok 3:</strong> ${s2 ?? "—"}</li>
-        <li><strong>Krok 4:</strong> ${s3 ?? "—"}</li>
-        <li><strong>Krok 5:</strong> ${s4 ?? "—"}</li>
-          <li><strong>Krok 6:</strong> ${s5 ?? "—"}</li>
+        <li><strong>Krok 1 Welchen Fenstertyp möchten Sie einbauen oder austauschen lassen?:</strong> ${Array.isArray(multi) && multi.length ? multi.join(", ") : "—"}</li>
+        <li><strong>Krok 2 Wie viele neue Fenster benötigen Sie insgesamt?:</strong> ${s1 ?? "—"}</li>
+        <li><strong>Krok 3 Wie stark sollen Ihre neuen Fenster isoliert sein?:</strong> ${s2 ?? "—"}</li>
+        <li><strong>Krok 4 Welches Material bevorzugen Sie für Ihre Fensterrahmen?:</strong> ${s3 ?? "—"}</li>
+        <li><strong>Krok 5 Soll die Fachfirma alte Fenster ausbauen und entsorgen?:</strong> ${s4 ?? "—"}</li>
+          <li><strong>Krok 6 Sind Sie Eigentümer oder Bevollmächtigter?:</strong> ${s5 ?? "—"}</li>
       </ol>
     `;
         console.log('email string: ', html)
