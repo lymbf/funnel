@@ -6,7 +6,13 @@ import {CheckCircle2} from "lucide-react";
 import {Answers, FormState, StepField, TouchedState} from "@/components/form/types";
 import {Dispatch, RefObject, SetStateAction, useEffect, useState} from "react";
 import Field from "@/components/form/field";
-import {emailRegex, isPhoneValid, phoneRegex, zipcodeRegex} from "@/components/form/validation";
+import {
+    emailRegex,
+    homePhoneRegex,
+    isPhoneValid,
+    mobilePhoneRegex,
+    zipcodeRegex
+} from "@/components/form/validation";
 
 interface RenderProps {
     answers: Answers,
@@ -62,7 +68,7 @@ export default function RenderStep({
             !formData.surname.trim() ? "Pflichtfeld" : formData.surname.trim().length < 2 ? "Nachname ist zu kurz" : "",
         phone: !formData.phone.trim()
             ? "Pflichtfeld"
-            : !phoneRegex.test(formData.zipcode.trim())
+            : (!mobilePhoneRegex.test(formData.phone.trim()) && !homePhoneRegex.test(formData.phone.trim()))
                 ? "Bitte eine gültige Nummer eingeben."
                 : "",
         email: !formData.email.trim()

@@ -3,7 +3,7 @@
 import {JSX, useEffect, useRef, useState} from "react";
 import {gsap} from "gsap";
 import {Answers, Direction, FormState, TouchedState} from './types'
-import {emailRegex, isPhoneValid, phoneRegex, zipcodeRegex} from "@/components/form/validation";
+import {emailRegex, homePhoneRegex, mobilePhoneRegex, zipcodeRegex} from "@/components/form/validation";
 import ProgressBar from "@/components/progressBar/progressBar";
 import RenderStep from "@/components/form/renderStep";
 import Nav from "@/components/form/nav";
@@ -38,7 +38,7 @@ export default function MultiStepForm(): JSX.Element {
         phone: "",
         email: "",
         notes: "",
-        zipcode:''
+        zipcode: ''
     });
 
     const [touched, setTouched] = useState<TouchedState>({
@@ -149,7 +149,7 @@ export default function MultiStepForm(): JSX.Element {
             !formData.surname.trim() ? "Pflichtfeld" : formData.surname.trim().length < 2 ? "Nachname ist zu kurz" : "",
         phone: !formData.phone.trim()
             ? "Pflichtfeld"
-            : !phoneRegex.test(formData.zipcode.trim())
+            : (!mobilePhoneRegex.test(formData.phone.trim()) && !homePhoneRegex.test(formData.phone.trim()))
                 ? "Bitte eine gültige Nummer eingeben."
                 : "",
         email: !formData.email.trim()
@@ -169,7 +169,7 @@ export default function MultiStepForm(): JSX.Element {
     /* handle submit */
     const handleSubmit = async (): Promise<void> => {
         // pokaż błędy jeśli user nie dotknął pól
-        setTouched({name: true, surname: true, phone: true, email: true, zipcode:true});
+        setTouched({name: true, surname: true, phone: true, email: true, zipcode: true});
         if (!isFormValid) return;
 
         setIsLoading(true);
@@ -183,7 +183,7 @@ export default function MultiStepForm(): JSX.Element {
                 phone: formData.phone.trim(),
                 email: formData.email.trim(),
                 notes: formData.notes.trim(),
-                zipcode:formData.zipcode.trim(),
+                zipcode: formData.zipcode.trim(),
                 answers: [answers.step0, answers.step1, answers.step2, answers.step3, answers.step4, answers.step5] as const,
             };
 
@@ -211,7 +211,7 @@ export default function MultiStepForm(): JSX.Element {
                 setCurrentStep(0);
                 setAnswers({step0: [], step1: null, step2: null, step3: null, step4: null, step5: null});
                 setFormData({name: "", surname: "", phone: "", email: "", notes: "", zipcode: ''});
-                setTouched({name: false, surname: false, phone: false, email: false, zipcode:false});
+                setTouched({name: false, surname: false, phone: false, email: false, zipcode: false});
                 setSuccessMessage("");
                 if (typeof window !== "undefined") localStorage.removeItem(LS_KEY);
             }, 2400);
@@ -222,6 +222,8 @@ export default function MultiStepForm(): JSX.Element {
             setIsLoading(false);
         }
     };
+
+    console.log('is mb reg v: ', mobilePhoneRegex.test('015252840758'))
 
 
     return (
@@ -263,15 +265,20 @@ export default function MultiStepForm(): JSX.Element {
                     })}
                 </div>
             </div>
-            {currentStep === 7 && <h2 className={'text-[10px] max-w-[600px] text-center'}>Mit dem Klick auf den untenstehenden Button senden
-                Sie Ihre Anfrage zur Vermittlung, erklären Ihr Einverständnis mit unseren AGB und bestätigen, die
-                <Link href = '/privacy-policy' className={'hover:cursor-pointer text-decoration-line'}>{` `}<span className={'text-decoration-line'}>Datenschutzerklärung</span></Link> gelesen zu haben. Zudem dürfen wir Ihnen per E-Mail Informationen zu ähnlichen
-                Produkten und Dienstleistungen zusenden. Sie können <a href="mailto:info@lewandowski-bau.com">{`hier `}</a>
-                dieser Nutzung jederzeit kostenlos
-                widersprechen.
-            </h2>}
+            {currentStep === 7 &&
+                <h2 className={'text-[10px] max-w-[600px] text-center'}>Mit dem Klick auf den untenstehenden Button
+                    senden
+                    Sie Ihre Anfrage zur Vermittlung, erklären Ihr Einverständnis mit unseren AGB und bestätigen, die
+                    <Link href='/privacy-policy' className={'hover:cursor-pointer text-decoration-line'}>{` `}<span
+                        className={'text-decoration-line'}>Datenschutzerklärung</span></Link> gelesen zu haben. Zudem
+                    dürfen wir Ihnen per E-Mail Informationen zu ähnlichen
+                    Produkten und Dienstleistungen zusenden. Sie können <a
+                        href="mailto:info@lewandowski-bau.com">{`hier `}</a>
+                    dieser Nutzung jederzeit kostenlos
+                    widersprechen.
+                </h2>}
             {/* Nawigacja */}
-            <Nav formData = {formData} currentStep={currentStep} isLoading={isLoading} setDirection={setDirection}
+            <Nav formData={formData} currentStep={currentStep} isLoading={isLoading} setDirection={setDirection}
                  setCurrentStep={setCurrentStep} answers={answers} isFormValid={isFormValid}
                  handleSubmit={handleSubmit}/>
         </div>

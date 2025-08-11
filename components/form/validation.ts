@@ -5,8 +5,9 @@ const isPhoneValid = (str: string): boolean => {
     return d.length === 9 || (d.length === 11 && d.startsWith("48"));
 };
 
-const phoneRegex = /^(?:\+49|0)(?:(?:1(?:5\d|6\d|7\d)\d{7,8})|(?:[2-9]\d{1,4}\d{3,8}))$/
+const mobilePhoneRegex = /^(?:\+49|0)1[5-7]\d{8,9}$/
+const homePhoneRegex = /^(?:\+49|0)[2-9]\d{4,12}$/
 
 const zipcodeRegex = /^\d{5}$/
 
-export { emailRegex, phoneDigits, isPhoneValid, zipcodeRegex, phoneRegex };
+export { emailRegex, phoneDigits, isPhoneValid, zipcodeRegex, mobilePhoneRegex, homePhoneRegex };
