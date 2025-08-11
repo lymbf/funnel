@@ -223,9 +223,6 @@ export default function MultiStepForm(): JSX.Element {
         }
     };
 
-    console.log('is mb reg v: ', mobilePhoneRegex.test('015252840758'))
-
-
     return (
         <div className={`${lato.className} relative w-full max-w-[1100px] flex flex-col items-center gap-2  sm:p-6`}>
             {/* Progress bar */}
