@@ -8,8 +8,8 @@ export default function Home() {
             className="flex flex-col w-full items-center justify-center gap-10  bg-[#ebf1f2]">
             <main className="mm flex flex-col gap-8 sm:gap-20 row-start-2 items-center w-full relative p-4 sm:p-8 md:p-10" >
                 <div className={'flex flex-col items-center gap-4 text-center'}>
-                    <h1 className={'text-[33px] sm:text-[42px] font-bold'}>Die 3-Minuten-Fenster-Beratung</h1>
-                    <h2 className={'text-[18px] sm:text-[20px] font-light'}>Erfahren Sie, wie viel Sie sparen können – und sichern Sie sich ein unverbindliches Angebot.</h2>
+                    <h1 className={'text-[33px] sm:text-[38px] font-bold'}>Die 3-Minuten-Fenster-Beratung</h1>
+                    <h2 className={'text-[18px] sm:text-[21px] font-light'}>Erfahren Sie, wie viel Sie sparen können – und sichern Sie sich ein unverbindliches Angebot.</h2>
                 </div>
                 <MultiStepForm/>
                 <div className={'text-slate-600 text-[18px] flex flex-row items-center'}>
