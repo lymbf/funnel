@@ -40,10 +40,8 @@ export default function Nav({
         setCurrentStep((s) => s - 1);
     };
 
-    /*  handle Go Next via enter  */
 
-
-    // —— walidacja „Naprzód”
+   /*  validate forward  */
     const stepDef = STEPS[currentStep];
     const canGoNext =
         stepDef.type === "multi"
@@ -59,8 +57,8 @@ export default function Nav({
         }
     }
 
+    /*  handle Go Next via enter  */
     useEffect(() => {
-
         const validateNext = ()=>{
             if( stepDef.type === "multi") return (answers.step0?.length || 0) > 0
             if(stepDef.type === 'single') return Boolean(answers[stepDef.field])
@@ -82,6 +80,8 @@ export default function Nav({
         window.addEventListener('keypress', handleKeyPress)
         return ()=>{removeEventListener('keypress', handleKeyPress)}
     }, [answers, currentStep, formData]);
+
+
     return (
         <div className="flex justify-between mt-4 sm:mt-6">
             <button

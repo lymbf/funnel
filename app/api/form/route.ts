@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import {Resend} from "resend";
+import {homePhoneRegex, mobilePhoneRegex} from "@/components/form/validation";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -45,7 +46,7 @@ export async function POST(req: NextRequest) {
         if (!emailRegex.test(email)) {
             return NextResponse.json({ message: "Niepoprawny adres e-mail" }, { status: 400 });
         }
-        if (!isPhoneValid(phone)) {
+        if (!mobilePhoneRegex.test(phone) && !homePhoneRegex.test(phone)) {
             return NextResponse.json({ message: "Niepoprawny numer telefonu" }, { status: 400 });
         }
         if (!answers || !Array.isArray(answers) || answers.length !== 6) {
@@ -75,8 +76,8 @@ export async function POST(req: NextRequest) {
     `;
         console.log('email string: ', html)
         await resend.emails.send({
-            from: 'hierfenster.de',
-            to: "the.prommers.pl@gmail.com",
+            from: 'lead@hierfenster.de',
+            to: "info@lewandowski-bau.com",
             subject: "Nowe zgłoszenie z formularza",
             html,
         });
