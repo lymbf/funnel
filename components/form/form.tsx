@@ -158,9 +158,9 @@ export default function MultiStepForm(): JSX.Element {
                 ? "Bitte geben Sie eine gültige E-Mail-Adresse ein."
                 : "",
         zipcode: !formData.zipcode.trim()
-            ? 'Podaj kod pocztowy'
+            ? 'Bitte geben Sie Ihre Postleitzahl ein.'
             : !zipcodeRegex.test(formData.zipcode.trim())
-                ? 'Bitte geben Sie eine gültige Postleitzahl ein.'
+                ? 'Bitte geben Sie eine gültige Postleitzahl ein.'
                 : ''
     } as const;
 
