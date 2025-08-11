@@ -94,7 +94,7 @@ export default function RenderStep({
         return (
             <div className={' flex flex-col items-center w-full'}>
                 <h2 className="text-xl font-bold mb-4 max-w-[600px] text-center">{def.question}</h2>
-                <div className="flex flex-col gap-2 sm:flex-row w-full sm:w-auto">
+                <div className="flex flex-col gap-2 sm:flex-row justify-center flex-wrap w-full sm:w-auto">
                     {def.options.map(({id, title, Icon}) => {
                         const active = def.type === "multi" ? answers.step0.includes(title) : answers[def.field] === title;
                         return (
