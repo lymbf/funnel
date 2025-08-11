@@ -93,7 +93,7 @@ export default function RenderStep({
     if (def.type === "multi" || def.type === "single") {
         return (
             <div className={' flex flex-col items-center w-full'}>
-                <h2 className="text-xl font-bold mb-4 max-w-[600px] text-center">{def.question}</h2>
+                <h2 className="text-md sm:text-xl font-bold mb-4 max-w-[600px] text-center">{def.question}</h2>
                 <div className="flex flex-col gap-2 sm:flex-row justify-center flex-wrap w-full sm:w-auto">
                     {def.options.map(({id, title, Icon}) => {
                         const active = def.type === "multi" ? answers.step0.includes(title) : answers[def.field] === title;
@@ -110,7 +110,7 @@ export default function RenderStep({
                                     >
                                       <Icon  className = 'h-full w-auto'/>
                                     </span>
-                                    <span className="font-semibold sm:absolute bottom-2  w-full max-w-[158px] text-center">{title}</span>
+                                    <span className="text-[19px] mr-10 sm:mr-0 sm:text-[16px] font-semibold sm:absolute bottom-2  w-full max-w-[158px] text-center">{title}</span>
                                 </div>
                             </Card>
                         );

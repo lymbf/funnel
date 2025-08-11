@@ -14,7 +14,7 @@ export default function Page() {
                 <div className={'flex flex-row items-center'}>
                     <Phone size={32} className={'w-[28px] sm:w-[40px] stroke-black mr-2 sm:mr-4'}/>
                     <div className={'flex flex-col flex-start '}>
-                        <p className={'text-[13px] font-medium'}>Habt Ihr Fragen?</p>
+                        <p className={'text-[13px] font-medium'}>Haben Sie Fragen?</p>
                         <p className={'text-[16px] sm:text-[26px] font-medium text-accent'}>015 679 653 114</p>
                     </div>
 

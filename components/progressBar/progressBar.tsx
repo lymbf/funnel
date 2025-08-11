@@ -12,7 +12,7 @@ export default function ProgressBar({ progressRefs}:Props){
 
 
     return(
-        <div className="flex gap-2 mb-6 w-full max-w-[800px]">
+        <div className="flex gap-2 mb-4 sm:mb-6 w-full max-w-[800px]">
             {STEPS.map((_, i) => (
                 <div key={i} className="flex-1 h-[5px] rounded-full bg-gray-200 overflow-hidden">
                     <div
