@@ -14,7 +14,7 @@ export default function Page() {
                     <Phone size = {32} className={'w-[28px] sm:w-[40px] stroke-black mr-2 sm:mr-4'}/>
                     <div className={'flex flex-col flex-start '}>
                         <p className={'text-[13px] font-medium'}>Habt Ihr Fragen?</p>
-                        <p className={'text-[16px] sm:text-[26px] font-medium text-accent'}>0800 89 87 65 3</p>
+                        <p className={'text-[16px] sm:text-[26px] font-medium text-accent'}>015 679 653 114</p>
                     </div>
 
                 </div>
