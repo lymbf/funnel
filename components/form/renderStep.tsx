@@ -189,7 +189,7 @@ export default function RenderStep({
                     onBlur={() => setTouched((t) => ({...t, phone: true}))}
                     error={touched.phone ? clientErrors.phone : ""}
                     required
-                    placeholder="015679653114"
+                    placeholder="Ihre Kontaktnummer"
                 />
                 <Field
                     type="email"
