@@ -11,7 +11,7 @@ export default function Page() {
 
                 <LogoComponent className={''}/>
 
-                <a href={'tel:015679653114'} className={'hover:opacity-80'}>
+                {/*<a href={'tel:015679653114'} className={'hover:opacity-80'}>*/}
                     <div className={'flex flex-row items-center'}>
                         <Phone size={32} className={'w-[28px] sm:w-[40px] stroke-black mr-2 sm:mr-4'}/>
                         <div className={'flex flex-col flex-start '}>
@@ -20,7 +20,7 @@ export default function Page() {
                         </div>
 
                     </div>
-                </a>
+                {/*</a>*/}
             </div>
         </div>
     )
