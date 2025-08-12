@@ -114,7 +114,12 @@ export default function MultiStepForm(): JSX.Element {
 
         const xOffset = direction === "forward" ? -60 : 60;
         const tl = gsap.timeline({});
-
+        if(currentStep === 6 && window.innerWidth < 800){
+            window.scroll({
+                top:100,
+                behavior:'smooth'
+            })
+        }
         tl.to(oldStep, {x: xOffset, opacity: 0, duration: 0.28, ease: "power2.in"})
             .fromTo(
                 newStep,
