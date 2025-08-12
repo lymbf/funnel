@@ -132,7 +132,7 @@ export default function RenderStep({
                     onBlur={() => setTouched((t) => ({...t, zipcode: true}))}
                     error={touched.zipcode ? clientErrors.zipcode : ""}
                     required
-                    placeholder="10999"
+                    placeholder="50999"
                 />
                 <p className={'text-slate-600 mt-2'}>
                     Für die Suche nach regionalen Fachfirmen
