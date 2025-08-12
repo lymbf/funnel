@@ -1,7 +1,8 @@
 import type {Metadata} from "next";
 import {Lato} from "next/font/google";
 import "./globals.css";
-import React from "react";
+import React, {Suspense} from "react";
+import GA from "@/components/GA/ga";
 
 const lato = Lato({
     variable: '--font-lato-sans',
@@ -25,6 +26,10 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
+        <Suspense>
+            <GA GA_MEASUREMENT_ID={'G-6NT3WL41ST'}/>
+        </Suspense>
+
         <body
             className={`${lato.className} antialiased`}
         >
