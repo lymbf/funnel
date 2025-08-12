@@ -13,6 +13,9 @@ import Check from "@/components/svgs/check";
 import Close from "@/components/svgs/close";
 import Door_window from "@/components/svgs/door_window";
 import Slide_window from "@/components/svgs/slide_window";
+import Aluminum_window from "@/components/svgs/aluminum_window";
+import Plastic_window from "@/components/svgs/plastic_window";
+import Wooden_window from "@/components/svgs/wooden_window";
 
 const STEPS: Step[] = [
     {
@@ -54,9 +57,9 @@ const STEPS: Step[] = [
         question: "Welches Material bevorzugen Sie für Ihre Fensterrahmen?",
         options: [
             { id: 1, title: "Ich bin offen für Empfehlungen", Icon: Check },
-            { id: 2, title: "Kunststoffrahmen", Icon: Single_window },
-            { id: 3, title: "Aluminium-/ Metallrahmen", Icon: Single_window  },
-            { id: 4, title: "Holzrahmen", Icon: Single_window  },
+            { id: 2, title: "Kunststoffrahmen", Icon: Plastic_window },
+            { id: 3, title: "Aluminium-/ Metallrahmen", Icon: Aluminum_window  },
+            { id: 4, title: "Holzrahmen", Icon: Wooden_window  },
             { id: 5, title: "Andere Materialien", Icon: Question_mark  },
         ],
     },
