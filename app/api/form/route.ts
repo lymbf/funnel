@@ -41,16 +41,16 @@ export async function POST(req: NextRequest) {
         console.log('answers: ', answers)
         // Walidacja podstawowa
         if (!name || !surname || !phone || !email) {
-            return NextResponse.json({ message: "Proszę wypełnić wszystkie wymagane pola" }, { status: 400 });
+            return NextResponse.json({ message: "Bitte füllen Sie alle erforderlichen Felder aus." }, { status: 400 });
         }
         if (!emailRegex.test(email)) {
-            return NextResponse.json({ message: "Niepoprawny adres e-mail" }, { status: 400 });
+            return NextResponse.json({ message: "Ungültige E-Mail-Adresse." }, { status: 400 });
         }
         if (!mobilePhoneRegex.test(phone) && !homePhoneRegex.test(phone)) {
-            return NextResponse.json({ message: "Niepoprawny numer telefonu" }, { status: 400 });
+            return NextResponse.json({ message: "Ungültige Telefonnummer." }, { status: 400 });
         }
         if (!answers || !Array.isArray(answers) || answers.length !== 6) {
-            return NextResponse.json({ message: "Brak kompletu odpowiedzi z formularza" }, { status: 400 });
+            return NextResponse.json({ message: "Unvollständige Antworten im Formular." }, { status: 400 });
         }
 
         const [multi, s1, s2, s3, s4, s5] = answers;
@@ -82,9 +82,10 @@ export async function POST(req: NextRequest) {
             html,
         });
 
-        return NextResponse.json({ message: "Formularz wysłany pomyślnie!" }, { status: 200 });
+        return NextResponse.json({ message: "Ihre Anfrage wurde übermittelt." +
+                "Wir melden uns in Kürze bei Ihnen." }, { status: 200 });
     } catch (error) {
         console.error("Błąd wysyłki:", error);
-        return NextResponse.json({ message: "Błąd wysyłki formularza" }, { status: 500 });
+        return NextResponse.json({ message: "Fehler beim Senden des Formulars." }, { status: 500 });
     }
 }
