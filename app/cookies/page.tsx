@@ -63,7 +63,7 @@ export default function CookiesDEPage() {
                             <h2 className="text-xl font-semibold text-gray-900">Kontakt</h2>
                             <p className="mt-2">
                                 Bei Fragen zum Datenschutz kontaktieren Sie uns bitte unter:
-                                <span className="px-1 font-medium">[E‑Mail‑Adresse]</span>.
+                                <span className="px-1 font-medium">info@lewandowski-bau.com</span>.
                             </p>
                         </section>
                     </article>

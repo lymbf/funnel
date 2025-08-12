@@ -38,11 +38,14 @@ export default function PrivacyPolicyDEPage() {
                             <h2 className="text-xl font-semibold text-gray-900">1. Verantwortlicher</h2>
                             <div className="mt-3 rounded-2xl border bg-white p-6 shadow-sm">
                                 <p>
+                                    <span className={''}>
+                                        Hierfenster.de ist eine Marke von Lewandowski Bauunternehmen.
+                                    </span>
                                     <span className="font-medium">Verantwortlicher</span> für die Datenverarbeitung ist
                                     <span className="px-1 font-semibold">Lewandowski Bauunternehmen, Inh. Cyprian Lewandowski</span> mit
                                     Sitz in
-                                    <span className="px-1">Franz-Kail-Str. 18, 51375 Leverkusen</span>,
-                                    <span className="px-1">230/5218/3403 / DE368592523</span>.
+                                    <span className="px-1">Franz-Kail-Str. 18, 51375 Leverkusen,</span>
+                                    <span className="px-1"> DE368592523</span>.
                                 </p>
                                 <ul className="mt-3 list-disc space-y-1 pl-6">
                                     <li>
