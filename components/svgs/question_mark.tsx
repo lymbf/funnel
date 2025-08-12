@@ -3,12 +3,21 @@ import {cn} from "@/lib/utils";
 
 export default function Question_mark({className}:{className?:string}){
     return (
-        <svg className = {cn('fill-accent', className)} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-             stroke="#303e58" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"
-          >
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
-            <path d="M12 17h.01"/>
+        <svg className={className} id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.36 19.36">
+            <g id="Layer_1-2" data-name="Layer 1">
+                <g>
+                    <circle cx="9.68" cy="9.68" r="9.18" fill="#3c949a"/>
+                    <circle cx="9.68" cy="9.68" r="9.18" fill="none" stroke="#303e58" strokeMiterlimit="10"/>
+                    <g>
+                        <path
+                            d="M9.72,14.35c.22,0,.41-.08.57-.24.16-.16.24-.35.24-.57s-.08-.41-.24-.57c-.16-.16-.35-.24-.57-.24s-.41.08-.57.24c-.16.16-.24.35-.24.57s.08.41.24.57c.16.16.35.24.57.24Z"
+                            fill="#303e58"/>
+                        <path
+                            d="M9.13,11.39h1.15c.01-.47.06-.8.16-.99.1-.2.29-.43.57-.71.49-.48.82-.88,1-1.19.17-.32.26-.66.26-1.03,0-.7-.23-1.29-.7-1.75-.47-.47-1.07-.7-1.8-.7-.61,0-1.16.16-1.64.49-.48.33-.83.77-1.04,1.33l1.05.45c.16-.42.37-.72.65-.9.27-.19.58-.28.93-.28.44,0,.79.12,1.05.37.26.25.4.57.4.96,0,.32-.1.61-.31.85-.21.24-.45.49-.71.73-.42.4-.69.75-.82,1.05-.12.3-.19.74-.19,1.32Z"
+                            fill="#303e58"/>
+                    </g>
+                </g>
+            </g>
         </svg>
     )
 }
