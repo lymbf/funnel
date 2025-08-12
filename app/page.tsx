@@ -5,8 +5,8 @@ import {InfoIcon} from "lucide-react";
 export default function Home() {
     return (
         <div
-            className="flex flex-col w-full items-center justify-center sm:gap-10  bg-[#ebf1f2]">
-            <main className="mm flex flex-col gap-6 sm:gap-20 row-start-2 items-center w-full relative p-4 sm:p-8 md:p-10" >
+            className="flex flex-col w-full items-center justify-center sm:gap-10  bg-[#ebf1f2] ">
+            <main className="mm flex flex-col gap-6 sm:gap-20 row-start-2 items-center w-full relative p-4 sm:p-8 md:p-10 min-h-[95vh] sm:min-h-0" >
                 <div className={'flex flex-col items-center gap-4 text-center'}>
                     <h1 className={'text-[26px] sm:text-[38px] font-bold'}>5-Minuten-Fensterberatung</h1>
                     <h2 className={'text-[15px] sm:text-[21px] font-light'}>Erfahren Sie, wie viel Sie sparen können – und sichern Sie sich ein unverbindliches Angebot.</h2>

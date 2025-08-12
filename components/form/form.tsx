@@ -116,7 +116,7 @@ export default function MultiStepForm(): JSX.Element {
         const tl = gsap.timeline({});
         if(currentStep === 6 && window.innerWidth < 800){
             window.scroll({
-                top:100,
+                top:150,
                 behavior:'smooth'
             })
         }
