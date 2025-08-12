@@ -188,6 +188,8 @@ export default function RenderStep({
                     onChange={(e) => setFormData((p) => ({...p, phone: e.target.value}))}
                     onBlur={() => setTouched((t) => ({...t, phone: true}))}
                     error={touched.phone ? clientErrors.phone : ""}
+                    required
+                    placeholder="015679653114"
                 />
                 <Field
                     type="email"
