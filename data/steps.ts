@@ -12,6 +12,7 @@ import Triple_glass from "@/components/svgs/triple_glass";
 import Check from "@/components/svgs/check";
 import Close from "@/components/svgs/close";
 import Door_window from "@/components/svgs/door_window";
+import Slide_window from "@/components/svgs/slide_window";
 
 const STEPS: Step[] = [
     {
@@ -20,7 +21,7 @@ const STEPS: Step[] = [
         question: "Welchen Fenstertyp möchten Sie einbauen oder austauschen lassen? (Mehrfachauswahl möglich)",
         options: [
             { id: 1, title: "Standardfenster", Icon: Single_window },
-            { id: 2, title: "Schiebetür", Icon: Roof_window },
+            { id: 2, title: "Schiebetür", Icon: Slide_window },
             { id: 3, title: "Haustür", Icon: Door_window  },
             { id: 4, title: "Andere Typen", Icon: Question_mark  },
         ],
