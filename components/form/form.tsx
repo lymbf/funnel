@@ -236,7 +236,7 @@ export default function MultiStepForm(): JSX.Element {
             <ProgressBar progressRefs={progressRefs}/>
 
             {/* Animowany kontener */}
-            <div ref={containerRef} className=" relative overflow-hidden min-h-[360px] w-full max-w-[1200px]"
+            <div ref={containerRef} className=" relative overflow-hidden  w-full max-w-[1200px]"
                  aria-live="polite">
                 <div className="step-content  old absolute top-0 left-0 w-full pointer-events-none flex justify-center">
                     {RenderStep({
