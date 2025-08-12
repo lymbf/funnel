@@ -143,7 +143,7 @@ export default function Nav({
                     type="button"
                     onClick={handleSubmit}
                     disabled={isLoading || !isFormValid}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 disabled:opacity-50"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-accent text-white hover:opacity-80 disabled:opacity-50"
                 >
                     {isLoading ? "Wysyłanie…" : <>Senden <Send size={18}/></>}
                 </button>
