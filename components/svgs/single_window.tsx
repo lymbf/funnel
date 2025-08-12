@@ -4,8 +4,8 @@ export default function Single_window({className}: { className?: string }) {
             <g id="Icons">
                 <g>
                     <g>
-
-                        <path className = 'fill-accent' d="M406,6v480H6V6h400ZM366,446V46H46v400h320Z" />
+                        <rect x="46" y="46" width="320" height="400" fill="#fff"/>
+                        <path className='fill-accent' d="M406,6v480H6V6h400ZM366,446V46H46v400h320Z"/>
                     </g>
                     <g>
                         <path
