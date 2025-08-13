@@ -3,7 +3,7 @@ import {Lato} from "next/font/google";
 import "./globals.css";
 import React, {Suspense} from "react";
 import GA from "@/components/GA/ga";
-
+import { Analytics } from "@vercel/analytics/next"
 const lato = Lato({
     variable: '--font-lato-sans',
     weight: ['100', '300', '400', '700', '900'],
@@ -34,6 +34,7 @@ export default function RootLayout({
         <body
             className={`${lato.className} antialiased`}
         >
+        <Analytics/>
         {header}
         {children}
         </body>
