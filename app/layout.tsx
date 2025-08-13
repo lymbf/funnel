@@ -28,6 +28,7 @@ export default function RootLayout({
         <html lang="en">
         <Suspense>
             <GA GA_MEASUREMENT_ID={'G-6NT3WL41ST'}/>
+            <GA GA_MEASUREMENT_ID={'AW-11437617885'}/>
         </Suspense>
 
         <body
