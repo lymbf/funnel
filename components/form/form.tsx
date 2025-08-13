@@ -11,6 +11,7 @@ import {Lato} from "next/font/google";
 import {STEPS} from "@/data/steps";
 import Link from "next/link";
 import {useGSAP} from "@gsap/react";
+import {track} from "@vercel/analytics";
 
 const lato = Lato({
     variable: '--font-lato-sans',
@@ -114,17 +115,21 @@ export default function MultiStepForm(): JSX.Element {
 
         const xOffset = direction === "forward" ? -60 : 60;
         const tl = gsap.timeline({});
-        if(currentStep === 6 && window.innerWidth < 800){
+        if (currentStep === 6 && window.innerWidth < 800) {
             window.scroll({
-                top:150,
-                behavior:'smooth'
+                top: 150,
+                behavior: 'smooth'
             })
         }
         tl.to(oldStep, {x: xOffset, opacity: 0, duration: 0.28, ease: "power2.in"})
             .fromTo(
                 newStep,
                 {x: -xOffset, opacity: 0},
-                {x: 0, opacity: 1, duration: 0.32, ease: "power2.out", onComplete:()=>{console.log('new step animation complete')}},
+                {
+                    x: 0, opacity: 1, duration: 0.32, ease: "power2.out", onComplete: () => {
+                        console.log('new step animation complete')
+                    }
+                },
                 "<"
             );
 
@@ -147,10 +152,9 @@ export default function MultiStepForm(): JSX.Element {
     const goNext = () => {
 
         if (currentStep >= STEPS.length - 1) return;
+        track(`moving to step ${currentStep+1}`)
         setDirection("forward");
-        console.log('go next execution')
-
-            setCurrentStep((s) => s + 1);
+        setCurrentStep((s) => s + 1);
 
     };
 

@@ -1,6 +1,6 @@
 import {FormState} from "@/components/form/types";
 import {ChangeEvent} from "react";
-
+import { track } from '@vercel/analytics';
 type FieldProps = {
     label: string;
     name: keyof FormState;
@@ -25,7 +25,7 @@ export default function Field({
                                   placeholder,
                               }: FieldProps) {
     return (
-        <div>
+        <div onClick={()=>{track(`clicked following form field:  ${name}`)}}>
             <label className={`block text-sm font-medium text-gray-800 mb-1 ${name === 'zipcode' ? 'w-[270px]' : ''}`}>
                 {label} {required && <span className="text-red-500">*</span>}
             </label>

@@ -3,6 +3,7 @@ import {STEPS} from "@/data/steps";
 import {Dispatch, SetStateAction, useEffect} from "react";
 import {Answers, Direction, FormState} from "@/components/form/types";
 import {zipcodeRegex} from "@/components/form/validation";
+import { track } from '@vercel/analytics';
 
 interface NavProps {
     currentStep: number;
@@ -29,6 +30,7 @@ export default function Nav({
 
     const goNext = () => {
         if (currentStep >= STEPS.length - 1) return;
+        track(`moving to step ${currentStep+1}`)
         setDirection("forward");
         setCurrentStep((s) => s + 1);
 
