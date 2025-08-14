@@ -152,7 +152,7 @@ export default function MultiStepForm(): JSX.Element {
     const goNext = () => {
 
         if (currentStep >= STEPS.length - 1) return;
-        track(`moving to step ${currentStep+1}`)
+        track(`moving to step ${currentStep + 1}`)
         setDirection("forward");
         setCurrentStep((s) => s + 1);
 
@@ -160,9 +160,14 @@ export default function MultiStepForm(): JSX.Element {
 
     /* —— walidacja klienta */
     const clientErrors = {
-        name: !formData.name.trim() ? "Pflichtfeld" : formData.name.trim().length < 2 ? "Vorname ist zu kurz" : "",
+        name:
+        /* v2 change  */
+        // !formData.name.trim() ? "Pflichtfeld" : formData.name.trim().length < 2 ? "Vorname ist zu kurz" : "",
+            formData.name.trim().length < 2 && formData.name.trim().length > 0 ? "Vorname ist zu kurz" : "",
         surname:
-            !formData.surname.trim() ? "Pflichtfeld" : formData.surname.trim().length < 2 ? "Nachname ist zu kurz" : "",
+        /* v2 change */
+        // !formData.surname.trim() ? "Pflichtfeld" : formData.surname.trim().length < 2 ? "Nachname ist zu kurz" : "",
+            formData.surname.trim().length < 3 && formData.surname.trim().length > 0 ? "Nachname ist zu kurz" : "",
         phone: !formData.phone.trim()
             ? "Pflichtfeld"
             : (!mobilePhoneRegex.test(formData.phone.trim()) && !homePhoneRegex.test(formData.phone.trim()))
@@ -180,7 +185,9 @@ export default function MultiStepForm(): JSX.Element {
                 : ''
     } as const;
 
-    const isFormValid = !clientErrors.name && !clientErrors.surname && !clientErrors.phone && !clientErrors.email && !clientErrors.zipcode;
+    /*  v2 change  */
+    // const isFormValid = !clientErrors.name && !clientErrors.surname && !clientErrors.phone && !clientErrors.email && !clientErrors.zipcode;
+    const isFormValid = (formData.name && !clientErrors.name || !formData.name.length) && (formData.surname && !clientErrors.surname || !formData.surname.length) && !clientErrors.email
 
     /* handle submit */
     const handleSubmit = async (): Promise<void> => {

@@ -67,9 +67,14 @@ export default function RenderStep({
     }
 
     const clientErrors = {
-        name: !formData.name.trim() ? "Pflichtfeld" : formData.name.trim().length < 2 ? "Vorname ist zu kurz" : "",
+        name:
+        /* v2 change  */
+        // !formData.name.trim() ? "Pflichtfeld" : formData.name.trim().length < 2 ? "Vorname ist zu kurz" : "",
+            formData.name.trim().length < 2 && formData.name.trim().length > 0 ? "Vorname ist zu kurz" : "",
         surname:
-            !formData.surname.trim() ? "Pflichtfeld" : formData.surname.trim().length < 2 ? "Nachname ist zu kurz" : "",
+        /* v2 change */
+        // !formData.surname.trim() ? "Pflichtfeld" : formData.surname.trim().length < 2 ? "Nachname ist zu kurz" : "",
+            formData.surname.trim().length < 3 &&  formData.surname.trim().length > 0 ? "Nachname ist zu kurz" : "",
         phone: !formData.phone.trim()
             ? "Pflichtfeld"
             : (!mobilePhoneRegex.test(formData.phone.trim()) && !homePhoneRegex.test(formData.phone.trim()))
@@ -162,35 +167,38 @@ export default function RenderStep({
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full">
                 <Field
-                    label="Vorname"
+                    label="Vorname (optional)"
                     name="name"
                     value={formData.name}
                     onChange={(e) => setFormData((p) => ({...p, name: e.target.value}))}
                     onBlur={() => setTouched((t) => ({...t, name: true}))}
                     error={touched.name ? clientErrors.name : ""}
-                    required
+                    /*  v2 change */
+                    //required
                     placeholder="Max"
                 />
                 <Field
-                    label="Nachname"
+                    label="Nachname (optional)"
                     name="surname"
                     value={formData.surname}
                     onChange={(e) => setFormData((p) => ({...p, surname: e.target.value}))}
                     onBlur={() => setTouched((t) => ({...t, surname: true}))}
                     error={touched.surname ? clientErrors.surname : ""}
-                    required
+                    /*  v2 change */
+                    //required
                     placeholder="Musterman"
                 />
-                <Field
-                    label="Telefon"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={(e) => setFormData((p) => ({...p, phone: e.target.value}))}
-                    onBlur={() => setTouched((t) => ({...t, phone: true}))}
-                    error={touched.phone ? clientErrors.phone : ""}
-                    required
-                    placeholder="Ihre Kontaktnummer"
-                />
+                {/*  v2 change  */}
+                {/*<Field*/}
+                {/*    label="Telefon"*/}
+                {/*    name="phone"*/}
+                {/*    value={formData.phone}*/}
+                {/*    onChange={(e) => setFormData((p) => ({...p, phone: e.target.value}))}*/}
+                {/*    onBlur={() => setTouched((t) => ({...t, phone: true}))}*/}
+                {/*    error={touched.phone ? clientErrors.phone : ""}*/}
+                {/*    required*/}
+                {/*    placeholder="Ihre Kontaktnummer"*/}
+                {/*/>*/}
                 <Field
                     type="email"
                     label="E-mail"

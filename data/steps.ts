@@ -82,7 +82,8 @@ const STEPS: Step[] = [
             { id: 2, title: "Nein", Icon: Close  },
         ],
     },
-    { type: "zipCode", field: "step6" },
+    /* v2 change */
+   // { type: "zipCode", field: "step6" },
     { type: "form", field: "step7" },
 ];
 

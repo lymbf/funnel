@@ -40,15 +40,18 @@ export async function POST(req: NextRequest) {
         console.log('asw length: ', answers?.length)
         console.log('answers: ', answers)
         // Walidacja podstawowa
-        if (!name || !surname || !phone || !email) {
+        /* v2 change */
+        // if (!name || !surname || !phone || !email) {
+        if (!email) {
             return NextResponse.json({ message: "Bitte füllen Sie alle erforderlichen Felder aus." }, { status: 400 });
         }
         if (!emailRegex.test(email)) {
             return NextResponse.json({ message: "Ungültige E-Mail-Adresse." }, { status: 400 });
         }
-        if (!mobilePhoneRegex.test(phone) && !homePhoneRegex.test(phone)) {
-            return NextResponse.json({ message: "Ungültige Telefonnummer." }, { status: 400 });
-        }
+        /*  v2 change  */
+        // if (!mobilePhoneRegex.test(phone) && !homePhoneRegex.test(phone)) {
+        //     return NextResponse.json({ message: "Ungültige Telefonnummer." }, { status: 400 });
+        // }
         if (!answers || !Array.isArray(answers) || answers.length !== 6) {
             return NextResponse.json({ message: "Unvollständige Antworten im Formular." }, { status: 400 });
         }
@@ -59,9 +62,11 @@ export async function POST(req: NextRequest) {
       <h1>Nowe zgłoszenie</h1>
       <p><strong>Imię:</strong> ${name}</p>
       <p><strong>Nazwisko:</strong> ${surname}</p>
-      <p><strong>Telefon:</strong> ${phone}</p>
+      ${/* v2 change */ ''}
+      ${/* <p><strong>Telefon:</strong> ${phone}</p> */ ''}
       <p><strong>Email:</strong> ${email}</p>
-      <p><strong>Zip Code:</strong> ${zipcode}</p>
+      ${/* v2 change */ ''}
+     ${ /* <p><strong>Zip Code:</strong> ${zipcode}</p> */ ''}
       <p><strong>Uwagi:</strong> ${notes || "(brak)"}</p>
       <hr />
       <h2>Odpowiedzi:</h2>
