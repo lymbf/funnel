@@ -1,18 +1,19 @@
+// app/components/GTag.tsx
 "use client";
 
 import { useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import {ensureGaLoaded} from "@/components/GA/gaLoader";
 
-
 type Consent = {
     necessary: true;
-    analytics: boolean; // analityka (analytics_storage)
-    marketing: boolean; // marketing (ad_storage)
+    analytics: boolean; // analytics_storage
+    marketing: boolean; // ad_storage
     timestamp?: string;
 };
 
 const CONSENT_COOKIE = "cookie_consent";
+const DEBUG = process.env.NODE_ENV !== "production";
 
 function getCookie(name: string): string | null {
     const m = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
@@ -34,40 +35,39 @@ function pageUrl(pathname: string | null, searchParams: URLSearchParams): string
     return s ? `${p}?${s}` : p;
 }
 
-export default function GA({ ga4, ads }: { ga4?: string; ads?: string }) {
+export default function GTag({ ga4, ads }: { ga4?: string; ads?: string }) {
     const pathname = usePathname();
     const searchParams = useSearchParams();
 
-    // Inicjalizacja na starcie wg zgody
+    // INIT: jeśli jest zgoda -> ładuj gtag i konfiguruj identyfikatory
     useEffect(() => {
         const c = parseConsent();
-        const needAnalytics = !!c?.analytics && !!ga4;
-        const needAds = !!c?.marketing && !!ads;
+        const allowAnalytics = !!c?.analytics && !!ga4;
+        const allowAds = !!c?.marketing && !!ads;
 
-        // Jeśli jakakolwiek kategoria wymaga gtag.js → ładujemy raz
-        if (needAnalytics || needAds) {
-            // bootstrap użyj z GA4 albo Ads (cokolwiek masz)
+        if (allowAnalytics || allowAds) {
             ensureGaLoaded(ga4 || ads || "");
 
-            // Aktualizuj Consent Mode
             window.gtag?.("consent", "update", {
-                analytics_storage: needAnalytics ? "granted" : "denied",
-                ad_storage: needAds ? "granted" : "denied",
+                analytics_storage: allowAnalytics ? "granted" : "denied",
+                ad_storage: allowAds ? "granted" : "denied",
             });
 
-            // Konfiguracje
-            if (needAnalytics && ga4) {
-                window.gtag?.("config", ga4, { page_path: pageUrl(pathname, searchParams) });
+            const url = pageUrl(pathname, searchParams);
+
+            if (allowAnalytics && ga4) {
+                window.gtag?.("config", ga4, { page_path: url, debug_mode: DEBUG });
             }
-            if (needAds && ads) {
-                // dla Ads wystarczy config; zdarzenia konwersji wywołujesz osobno przy akcjach
+            if (allowAds && ads) {
                 window.gtag?.("config", ads);
+                // Uczyń hit „widocznym” w Network (remarketing/page_view)
+                window.gtag?.("event", "page_view", { send_to: ads });
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [ga4, ads]); // tylko init
+    }, [ga4, ads]); // tylko raz na identyfikatory
 
-    // Reakcja na zmianę zgody z banera
+    // Zmiana zgody z banera
     useEffect(() => {
         function onConsentChanged(e: Event) {
             const detail = (e as CustomEvent<Consent>).detail;
@@ -76,7 +76,6 @@ export default function GA({ ga4, ads }: { ga4?: string; ads?: string }) {
             const allowAnalytics = !!detail.analytics && !!ga4;
             const allowAds = !!detail.marketing && !!ads;
 
-            // Upewnij się, że gtag.js jest załadowany jeśli cokolwiek włączono
             if (allowAnalytics || allowAds) ensureGaLoaded(ga4 || ads || "");
 
             window.gtag?.("consent", "update", {
@@ -84,12 +83,15 @@ export default function GA({ ga4, ads }: { ga4?: string; ads?: string }) {
                 ad_storage: allowAds ? "granted" : "denied",
             });
 
-            // Pierwsza konfiguracja po udzieleniu zgody
+            const url = pageUrl(pathname, searchParams);
+
+            // pierwsza konfiguracja po „tak”
             if (allowAnalytics && ga4) {
-                window.gtag?.("config", ga4, { page_path: pageUrl(pathname, searchParams) });
+                window.gtag?.("config", ga4, { page_path: url, debug_mode: DEBUG });
             }
             if (allowAds && ads) {
                 window.gtag?.("config", ads);
+                window.gtag?.("event", "page_view", { send_to: ads });
             }
         }
 
@@ -97,12 +99,18 @@ export default function GA({ ga4, ads }: { ga4?: string; ads?: string }) {
         return () => window.removeEventListener("cookie-consent-changed", onConsentChanged as EventListener);
     }, [ga4, ads, pathname, searchParams]);
 
-    // SPA pageview tylko dla GA4 (gdy gtag już jest)
+    // SPA PageView: GA4 + (opcjonalnie) Ads
     useEffect(() => {
-        if (!ga4) return;
         const url = pageUrl(pathname, searchParams);
-        window.gtag?.("config", ga4, { page_path: url });
-    }, [ga4, pathname, searchParams]);
+
+        if (ga4) {
+            window.gtag?.("config", ga4, { page_path: url, debug_mode: DEBUG });
+        }
+        if (ads) {
+            // dla remarketingu warto wysyłać page_view przy nawigacjach SPA
+            window.gtag?.("event", "page_view", { send_to: ads });
+        }
+    }, [ga4, ads, pathname, searchParams]);
 
     return null;
 }
