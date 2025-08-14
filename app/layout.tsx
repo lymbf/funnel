@@ -4,6 +4,8 @@ import "./globals.css";
 import React, {Suspense} from "react";
 import GA from "@/components/GA/ga";
 import { Analytics } from "@vercel/analytics/next"
+import CookieBanner from "@/components/cookie/cookieBanner";
+import MetaPixelRuntime from "@/components/FBPixel/metaPixelRuntime";
 const lato = Lato({
     variable: '--font-lato-sans',
     weight: ['100', '300', '400', '700', '900'],
@@ -14,6 +16,9 @@ export const metadata: Metadata = {
     title: "HierFenster.de",
     description: "Jetzt Angebot sichern!",
 };
+
+const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || "";
+
 
 export default function RootLayout({
                                        children,
@@ -37,6 +42,8 @@ export default function RootLayout({
         <Analytics/>
         {header}
         {children}
+        <CookieBanner/>
+        <MetaPixelRuntime pixelId={META_PIXEL_ID} />
         </body>
         </html>
     );
