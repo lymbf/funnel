@@ -15,7 +15,7 @@ declare global {
     interface Window {
         showCookieBanner?: () => void;
         cloudinary: unknown;
-        gtag?: (...args: unknown[]) => void;
+        gtag: (...args: unknown[]) => void;
         fbq?: FbqFunction;
         _fbq?: FbqFunction;
         dataLayer?: unknown[];

@@ -1,4 +1,5 @@
-export function trackPageview(measurementId: string, url: string): void {
-    if (typeof window === "undefined" || !window.gtag) return;
-    window.gtag("config", measurementId, { page_path: url });
+export const pv = (GA_MEASUREMENT_ID:string, url:string)=>{
+    window.gtag('config', GA_MEASUREMENT_ID, {
+        page_path: url
+    })
 }
