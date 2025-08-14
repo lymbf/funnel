@@ -223,7 +223,7 @@ export default function RenderStep({
             </div>
 
             <div className="mt-3">
-                {isLoading && <p className="text-blue-600">Wysyłanie formularza…</p>}
+                {isLoading && <p className="text-blue-600">Senden des Formulars…</p>}
                 {successMessage && (
                     <p ref={successRef} className="text-green-600 font-semibold flex items-center gap-2">
                         <CheckCircle2 size={18}/> {successMessage}

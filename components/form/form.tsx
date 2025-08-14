@@ -12,6 +12,8 @@ import {STEPS} from "@/data/steps";
 import Link from "next/link";
 import {useGSAP} from "@gsap/react";
 import {track} from "@vercel/analytics";
+import {useRouter} from "next/navigation";
+import random from 'random-string-generator';
 
 const lato = Lato({
     variable: '--font-lato-sans',
@@ -23,6 +25,7 @@ const LS_KEY = "msf_state_v1";
 const NEXT_DELAY = 2000
 
 export default function MultiStepForm(): JSX.Element {
+    const router = useRouter()
     const [currentStep, setCurrentStep] = useState<number>(0); // 0..5
     const [direction, setDirection] = useState<Direction>("forward");
 
@@ -198,9 +201,10 @@ export default function MultiStepForm(): JSX.Element {
         setIsLoading(true);
         setErrorMessage("");
         setSuccessMessage("");
-
+        const id = random(12)
         try {
             const payload = {
+                id,
                 name: formData.name.trim(),
                 surname: formData.surname.trim(),
                 phone: formData.phone.trim(),
@@ -217,33 +221,42 @@ export default function MultiStepForm(): JSX.Element {
             });
             const data = (await res.json()) as { message?: string };
 
-            if (!res.ok) throw new Error(data?.message || "Błąd wysyłki formularza");
+            if (!res.ok) throw new Error(data?.message || "Fehler beim Senden des Formulars.");
 
-            setSuccessMessage(data?.message || "Formularz wysłany pomyślnie!");
-            if (successRef.current) {
-                gsap.fromTo(successRef.current, {y: -12, opacity: 0}, {
-                    y: 0,
-                    opacity: 1,
-                    duration: 0.45,
-                    ease: "power2.out"
-                });
-            }
+            /* v2 change */
+            router.push(`/followup?id=${id}`)
 
-            // wyczyść i localStorage
-            window.setTimeout(() => {
-                setCurrentStep(0);
-                setAnswers({step0: [], step1: null, step2: null, step3: null, step4: null, step5: null});
-                setFormData({name: "", surname: "", phone: "", email: "", notes: "", zipcode: ''});
-                setTouched({name: false, surname: false, phone: false, email: false, zipcode: false});
-                setSuccessMessage("");
-                if (typeof window !== "undefined") localStorage.removeItem(LS_KEY);
-            }, 2400);
-        } catch (err: unknown) {
-            const msg = err instanceof Error ? err.message : "Nie udało się wysłać formularza";
+        }  catch(err){
+            const msg = err instanceof Error ? err.message : "Das Formular konnte nicht gesendet werden.";
             setErrorMessage(msg);
-        } finally {
-            setIsLoading(false);
         }
+
+            /*  unlock for v1  */
+        //     setSuccessMessage(data?.message || "Formular erfolgreich gesendet.");
+        //     if (successRef.current) {
+        //         gsap.fromTo(successRef.current, {y: -12, opacity: 0}, {
+        //             y: 0,
+        //             opacity: 1,
+        //             duration: 0.45,
+        //             ease: "power2.out"
+        //         });
+        //     }
+        //
+        //     // wyczyść i localStorage
+        //     window.setTimeout(() => {
+        //         setCurrentStep(0);
+        //         setAnswers({step0: [], step1: null, step2: null, step3: null, step4: null, step5: null});
+        //         setFormData({name: "", surname: "", phone: "", email: "", notes: "", zipcode: ''});
+        //         setTouched({name: false, surname: false, phone: false, email: false, zipcode: false});
+        //         setSuccessMessage("");
+        //         if (typeof window !== "undefined") localStorage.removeItem(LS_KEY);
+        //     }, 2400);
+        // } catch (err: unknown) {
+        //     const msg = err instanceof Error ? err.message : "Das Formular konnte nicht gesendet werden.";
+        //     setErrorMessage(msg);
+        // } finally {
+        //     setIsLoading(false);
+        // }
     };
 
     return (

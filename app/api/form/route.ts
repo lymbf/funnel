@@ -5,7 +5,6 @@ import {homePhoneRegex, mobilePhoneRegex} from "@/components/form/validation";
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 //re_hdbi5AFW_PX56foY7KVEaLgPDE7Df6m4L
-console.log('api key: ', process.env.RESEND_API_KEY)
 type AnswersPayload = [string[], string | null, string | null, string | null, string | null, string | null];
 
 interface FormPayload {
@@ -16,6 +15,7 @@ interface FormPayload {
     zipcode:string;
     notes?: string;
     answers: AnswersPayload;
+    id:string
 }
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -28,7 +28,7 @@ const isPhoneValid = (str: string): boolean => {
 export async function POST(req: NextRequest) {
     try {
         const body = (await req.json()) as Partial<FormPayload>;
-
+        const id = body.id?.trim() ?? ""
         const name = body.name?.trim() ?? "";
         const surname = body.surname?.trim() ?? "";
         const phone = body.phone?.trim() ?? "";
@@ -37,8 +37,6 @@ export async function POST(req: NextRequest) {
         const notes = body.notes?.trim() ?? "";
         const answers = body.answers;
 
-        console.log('asw length: ', answers?.length)
-        console.log('answers: ', answers)
         // Walidacja podstawowa
         /* v2 change */
         // if (!name || !surname || !phone || !email) {
@@ -59,7 +57,8 @@ export async function POST(req: NextRequest) {
         const [multi, s1, s2, s3, s4, s5] = answers;
 
         const html = `
-      <h1>Nowe zgłoszenie</h1>
+      <h1>Nowe zgłoszenie nr ${id}</h1>
+    
       <p><strong>Imię:</strong> ${name}</p>
       <p><strong>Nazwisko:</strong> ${surname}</p>
       ${/* v2 change */ ''}
@@ -83,7 +82,7 @@ export async function POST(req: NextRequest) {
         await resend.emails.send({
             from: 'lead@hierfenster.de',
             to: "info@lewandowski-bau.com",
-            subject: "Nowe zgłoszenie z formularza",
+            subject: `Nowe zgłoszenie nr ${id}`,
             html,
         });
 
