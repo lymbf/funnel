@@ -118,6 +118,16 @@ export default function CookieBanner() {
         };
     }, []);
 
+    useEffect(() => {
+        if(consent && (typeof window.gtag !== 'undefined')){
+            const newValue = consent.analytics ? 'granted' : 'denied';
+
+            window.gtag('consent', 'update', {
+                'analytics_storage': newValue
+            })
+        }
+    }, [consent]);
+
     if (!open) return null;
 
     return (
