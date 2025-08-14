@@ -123,8 +123,11 @@ export default function CookieBanner() {
             const newValue = consent.analytics ? 'granted' : 'denied';
             const adNewValue = consent.marketing ?'granted' : 'denied'
             window.gtag && window.gtag('consent', 'update', {
-                'analytics_storage': newValue,
-                'ad_storage': adNewValue,
+                'analytics_storage': newValue
+            })
+
+            window.gtag && window.gtag('consent', 'update', {
+                'ad_storage': newValue
             })
         }
     }, [consent]);
