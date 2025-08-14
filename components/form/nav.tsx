@@ -30,7 +30,7 @@ export default function Nav({
 
     const goNext = () => {
         if (currentStep >= STEPS.length - 1) return;
-        track(`moving to step ${currentStep+1}`)
+        track(`v2 moving to step ${currentStep+1}`)
         setDirection("forward");
         setCurrentStep((s) => s + 1);
 
