@@ -32,8 +32,8 @@ export default function RootLayout({
     return (
         <html lang="en">
         <Suspense>
-            <GA GA_MEASUREMENT_ID={'G-6NT3WL41ST'}/>
-            <GA GA_MEASUREMENT_ID={'AW-11437617885'}/>
+
+            <GA ga4="G-6NT3WL41ST" ads="AW-11437617885"/>
         </Suspense>
 
         <body

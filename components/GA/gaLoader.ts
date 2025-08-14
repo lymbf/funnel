@@ -1,32 +1,27 @@
-// Ładuje gtag.js i przygotowuje window.gtag — bez uruchamiania 'config'.
-export function ensureGaLoaded(measurementId: string): void {
-    if (typeof window === "undefined") return;
-    if (!measurementId) return;
+// lib/gaLoader.ts
+export function ensureGaLoaded(bootstrapId: string): void {
+    if (typeof window === "undefined" || !bootstrapId) return;
 
-    // Jeśli gtag już jest przygotowany, wystarczy.
-    const hasGtag =
-        "gtag" in window && typeof window.gtag === "function";
+    const hasGtag = "gtag" in window && typeof window.gtag === "function";
     if (hasGtag) return;
 
     if (!("dataLayer" in window) || !Array.isArray(window.dataLayer)) {
         window.dataLayer = [];
     }
 
-    // Definiujemy gtag jako proxy do dataLayer
-    const gtag: (...args: unknown[]) => void = (...args) => {
+    window.gtag = (...args: unknown[]) => {
         (window.dataLayer as unknown[]).push(args);
     };
-    window.gtag = gtag;
 
-    // Tag startowy (wymagany)
+    // Start + domyślne zgody (oba storage „denied”)
     window.gtag("js", new Date());
+    window.gtag("consent", "default", {
+        analytics_storage: "denied",
+        ad_storage: "denied",
+    });
 
-    // Domyślnie DENIED — zgodę ustawimy dopiero po kliknięciu w baner/analitykę
-    window.gtag("consent", "default", { analytics_storage: "denied" });
-
-    // Dociągnij skrypt
     const s = document.createElement("script");
     s.async = true;
-    s.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
+    s.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(bootstrapId)}`;
     document.head.appendChild(s);
 }

@@ -3,22 +3,21 @@
 import { useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import {ensureGaLoaded} from "@/components/GA/gaLoader";
-import {trackPageview} from "@/components/GA/gtagHelper";
+
 
 type Consent = {
     necessary: true;
-    analytics: boolean;
-    marketing: boolean;
+    analytics: boolean; // analityka (analytics_storage)
+    marketing: boolean; // marketing (ad_storage)
     timestamp?: string;
 };
 
 const CONSENT_COOKIE = "cookie_consent";
 
 function getCookie(name: string): string | null {
-    const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
-    return match ? decodeURIComponent(match[2]) : null;
+    const m = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+    return m ? decodeURIComponent(m[2]) : null;
 }
-
 function parseConsent(): Consent | null {
     const raw = getCookie(CONSENT_COOKIE);
     if (!raw) return null;
@@ -29,56 +28,81 @@ function parseConsent(): Consent | null {
         return null;
     }
 }
+function pageUrl(pathname: string | null, searchParams: URLSearchParams): string {
+    const p = pathname || "/";
+    const s = searchParams.toString();
+    return s ? `${p}?${s}` : p;
+}
 
-export default function GA({ GA_MEASUREMENT_ID }: { GA_MEASUREMENT_ID: string }) {
+export default function GA({ ga4, ads }: { ga4?: string; ads?: string }) {
     const pathname = usePathname();
     const searchParams = useSearchParams();
 
-    // 1) Start: jeśli jest zgoda na analitykę → wczytaj GA, ustaw consent=granted i wyślij pierwszy PV
+    // Inicjalizacja na starcie wg zgody
     useEffect(() => {
         const c = parseConsent();
-        if (c?.analytics) {
-            ensureGaLoaded(GA_MEASUREMENT_ID);
-            // ustawienie zgody przed pierwszym config
-            window.gtag?.("consent", "update", { analytics_storage: "granted" });
+        const needAnalytics = !!c?.analytics && !!ga4;
+        const needAds = !!c?.marketing && !!ads;
 
-            const sp = searchParams.toString();
-            const url = sp ? `${pathname}?${sp}` : pathname || "/";
-            trackPageview(GA_MEASUREMENT_ID, url);
+        // Jeśli jakakolwiek kategoria wymaga gtag.js → ładujemy raz
+        if (needAnalytics || needAds) {
+            // bootstrap użyj z GA4 albo Ads (cokolwiek masz)
+            ensureGaLoaded(ga4 || ads || "");
+
+            // Aktualizuj Consent Mode
+            window.gtag?.("consent", "update", {
+                analytics_storage: needAnalytics ? "granted" : "denied",
+                ad_storage: needAds ? "granted" : "denied",
+            });
+
+            // Konfiguracje
+            if (needAnalytics && ga4) {
+                window.gtag?.("config", ga4, { page_path: pageUrl(pathname, searchParams) });
+            }
+            if (needAds && ads) {
+                // dla Ads wystarczy config; zdarzenia konwersji wywołujesz osobno przy akcjach
+                window.gtag?.("config", ads);
+            }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [GA_MEASUREMENT_ID]); // intencjonalnie bez pathname/searchParams — to tylko inicjalizacja
+    }, [ga4, ads]); // tylko init
 
-    // 2) Reakcja na zmianę zgody z banera (cookie-consent-changed)
+    // Reakcja na zmianę zgody z banera
     useEffect(() => {
         function onConsentChanged(e: Event) {
             const detail = (e as CustomEvent<Consent>).detail;
             if (!detail) return;
 
-            if (detail.analytics) {
-                ensureGaLoaded(GA_MEASUREMENT_ID);
-                window.gtag?.("consent", "update", { analytics_storage: "granted" });
+            const allowAnalytics = !!detail.analytics && !!ga4;
+            const allowAds = !!detail.marketing && !!ads;
 
-                const sp = searchParams.toString();
-                const url = sp ? `${pathname}?${sp}` : pathname || "/";
-                trackPageview(GA_MEASUREMENT_ID, url);
-            } else {
-                // Uwaga: wyłączenie w locie nie usuwa już załadowanego skryptu.
-                // Zwykle wystarcza pozostawienie 'denied' przy kolejnym starcie/odświeżeniu.
-                window.gtag?.("consent", "update", { analytics_storage: "denied" });
+            // Upewnij się, że gtag.js jest załadowany jeśli cokolwiek włączono
+            if (allowAnalytics || allowAds) ensureGaLoaded(ga4 || ads || "");
+
+            window.gtag?.("consent", "update", {
+                analytics_storage: allowAnalytics ? "granted" : "denied",
+                ad_storage: allowAds ? "granted" : "denied",
+            });
+
+            // Pierwsza konfiguracja po udzieleniu zgody
+            if (allowAnalytics && ga4) {
+                window.gtag?.("config", ga4, { page_path: pageUrl(pathname, searchParams) });
+            }
+            if (allowAds && ads) {
+                window.gtag?.("config", ads);
             }
         }
 
         window.addEventListener("cookie-consent-changed", onConsentChanged as EventListener);
         return () => window.removeEventListener("cookie-consent-changed", onConsentChanged as EventListener);
-    }, [GA_MEASUREMENT_ID, pathname, searchParams]);
+    }, [ga4, ads, pathname, searchParams]);
 
-    // 3) SPA PageView przy zmianie trasy (tylko jeśli gtag już jest)
+    // SPA pageview tylko dla GA4 (gdy gtag już jest)
     useEffect(() => {
-        const sp = searchParams.toString();
-        const url = sp ? `${pathname}?${sp}` : pathname || "/";
-        trackPageview(GA_MEASUREMENT_ID, url);
-    }, [pathname, searchParams, GA_MEASUREMENT_ID]);
+        if (!ga4) return;
+        const url = pageUrl(pathname, searchParams);
+        window.gtag?.("config", ga4, { page_path: url });
+    }, [ga4, pathname, searchParams]);
 
     return null;
 }
