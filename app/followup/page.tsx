@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {InfoIcon} from "lucide-react";
 import PhoneForm from "@/components/phoneForm/phoneForm";
+import {Suspense} from "react";
 
 
 export default function Followup() {
@@ -18,7 +19,10 @@ export default function Followup() {
                     Um Ihr Angebot schneller zu erhalten, hinterlassen Sie bitte Ihre Telefonnummer. Wir melden uns
                     zeitnah bei Ihnen
                 </h2>
-                <PhoneForm/>
+                <Suspense>
+                    <PhoneForm/>
+                </Suspense>
+
                 <div className={'text-slate-600 text-[14px] sm:text-[18px] flex flex-row items-center'}>
                     <InfoIcon className={'mr-4'}/>Der Service ist für Sie komplett kostenfrei und unverbindlich.
                 </div>
